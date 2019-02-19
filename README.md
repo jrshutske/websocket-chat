@@ -1,5 +1,7 @@
 # websocket-chat
 
+People want to have a place to talk to their friends. With this application people are able to create an account, a private room and get chatting.
+
 A barebones Java app, which can easily be deployed to Heroku.
 
 This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
