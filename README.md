@@ -2,6 +2,8 @@
 
 People want to have a place to talk to their friends. With this application people are able to create an account, a private room and get chatting.
 
+This application is using a PostgreSQL database hosted on Heroku and will be implementing the [Javamail](https://www.oracle.com/technetwork/java/javamail/index.html) API.
+
 A barebones Java app, which can easily be deployed to Heroku.
 
 This application supports the [Getting Started with Java on Heroku](https://devcenter.heroku.com/articles/getting-started-with-java) article - check it out.
