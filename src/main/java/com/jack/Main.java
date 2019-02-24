@@ -16,6 +16,8 @@
 
 package com.jack;
 
+import com.jack.persistence.UserDao;
+import com.jack.entity.User;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.*;
 
 @Controller
 @SpringBootApplication
@@ -51,6 +54,16 @@ public class Main {
   @RequestMapping("/")
   String index() {
     return "index";
+  }
+
+  @RequestMapping("/getall")
+  String getAll(Map<String, Object> model) {
+    UserDao userDao = new UserDao();
+    List<User> rs = userDao.getAll();
+    ArrayList<String> output = new ArrayList<String>();
+    output.add("User from DB: " + rs);
+    model.put("records", output);
+    return "getall";
   }
 
   @RequestMapping("/db")
