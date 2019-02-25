@@ -9,7 +9,7 @@
 <session-factory>
 
     <property name="hibernate.connection.url">postgres://zwnysmftoqgbnt:e4070f0046564752caa548fce29a75506b3f1b1185c98c7939d9897c98f38480@ec2-23-23-184-76.compute-1.amazonaws.com:5432/d60n97uubco055</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.driver_class">org.postgresql</property>
 
     <!-- <property name="connection.username">root</property>
     <property name="connection.password">student</property> -->
