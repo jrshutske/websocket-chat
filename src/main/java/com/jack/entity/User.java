@@ -3,7 +3,7 @@ package com.jack.entity;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "users")
 public class User {
 

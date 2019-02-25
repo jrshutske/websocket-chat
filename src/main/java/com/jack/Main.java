@@ -53,17 +53,23 @@ public class Main {
 
   @RequestMapping("/")
   String index() {
-    return "index";
+    return "hello";
   }
 
-  @RequestMapping("/getAll")
-  String getAll(Map<String, Object> model) {
+  @RequestMapping("/getall")
+  String getall(Map<String, Object> model) {
     UserDao userDao = new UserDao();
     List<User> rs = userDao.getAll();
     ArrayList<String> output = new ArrayList<String>();
     output.add("User from DB: " + rs);
     model.put("records", output);
-    return "getAll";
+    return "getall";
+  }
+
+  @RequestMapping("/hello")
+  String hello() {
+
+    return "hello";
   }
 
   @RequestMapping("/db")

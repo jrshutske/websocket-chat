@@ -13,7 +13,7 @@
     <version>2.1.2.RELEASE</version>
     <relativePath/>
   </parent>
-  <name>java-getting-started</name>
+  <name>websocket-chat</name>
 
   <properties>
     <java.version>1.8</java.version>
@@ -83,11 +83,11 @@
       <artifactId>bootstrap</artifactId>
       <version>${webjars-bootstrap.version}</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
-    </dependency>
+    </dependency> -->
   </dependencies>
 
   <build>
