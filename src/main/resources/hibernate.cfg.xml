@@ -19,8 +19,8 @@
     <property name="hibernate.c3p0.timeout">300</property>
     <property name="hibernate.c3p0.max_statements">50</property>
     <property name="hibernate.c3p0.idle_test_period">3000</property>
-    <prop key="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
-    <prop key="hibernate.c3p0.acquire_increment">1</prop>
+    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</prop>
+    <property name="hibernate.c3p0.acquire_increment">1</prop>
     <mapping class="com.jack.entity.User"/>
 
 
