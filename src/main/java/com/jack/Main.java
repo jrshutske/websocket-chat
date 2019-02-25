@@ -56,14 +56,14 @@ public class Main {
     return "index";
   }
 
-  @RequestMapping("/getall")
+  @RequestMapping("/getAll")
   String getAll(Map<String, Object> model) {
     UserDao userDao = new UserDao();
     List<User> rs = userDao.getAll();
     ArrayList<String> output = new ArrayList<String>();
     output.add("User from DB: " + rs);
     model.put("records", output);
-    return "getall";
+    return "getAll";
   }
 
   @RequestMapping("/db")
