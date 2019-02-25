@@ -26,7 +26,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -45,19 +45,27 @@ public class Main {
     SpringApplication.run(Main.class, args);
   }
 
-  @RequestMapping("/")
+  @GetMapping("/")
   String index() {
     return "hello";
   }
 
-  @RequestMapping("/getall")
-  String getall(Map<String, Object> model) {
+  @GetMapping("/users")
+  String users(Map<String, Object> model) {
     UserDao userDao = new UserDao();
     List<User> rs = userDao.getAll();
     ArrayList<String> output = new ArrayList<String>();
     output.add("User from DB: " + rs);
     model.put("records", output);
-    return "getall";
+    return "users";
+  }
+
+  @GetMapping("/users/{id}")
+  String userbyid(@PathVariable int id, Map<String, Object> model){
+    UserDao userDao = new UserDao();
+    User user = userDao.getById(id);
+    model.put("record", user);
+    return "user";
   }
 
   @RequestMapping("/hello")
