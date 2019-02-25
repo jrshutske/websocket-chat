@@ -17,6 +17,7 @@
 package com.jack;
 
 import com.jack.persistence.UserDao;
+import com.jack.persistence.HibernateUtil;
 import com.jack.entity.User;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -58,9 +59,14 @@ public class Main {
 
   @RequestMapping("/getall")
   String getall(Map<String, Object> model) {
+    Session session = HibernateUtil.getSessionFactory().openSession();
+    session.beginTransaction();
     UserDao userDao = new UserDao();
     List<User> rs = userDao.getAll();
     ArrayList<String> output = new ArrayList<String>();
+    session.getTransaction().commit();
+    session.close();
+    HibernateUtil.shutdown();
     output.add("User from DB: " + rs);
     model.put("records", output);
     return "getall";
