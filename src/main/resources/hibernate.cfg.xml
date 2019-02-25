@@ -7,33 +7,22 @@
 <hibernate-configuration>
 
 <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="connection.url">${JDBC_DATABASE_URL}</property>
-    <property name="connection.driver_class">org.postgresql.Driver</property>
+          <property name="hibernate.connection.url" value="${JDBC_DATABASE_URL}"/>
+          <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+          <property name="hibernate.archive.autodetection" value="class"/>
+          <property name="hibernate.show_sql" value="true"/>
+          <property name="hibernate.format_sql" value="true"/>
+          <property name="hbm2ddl.auto" value="update"/>
 
-    <!-- <property name="connection.username">root</property>
-    <property name="connection.password">student</property> -->
-
-    <property name="hibernate.c3p0.min_size">5</property>
-    <property name="hibernate.c3p0.max_size">20</property>
-    <property name="hibernate.c3p0.timeout">300</property>
-    <property name="hibernate.c3p0.max_statements">50</property>
-    <property name="hibernate.c3p0.idle_test_period">3000</property>
-    <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
-    <property name="hibernate.c3p0.acquire_increment">1</property>
-
-
-
-    <property name="connection_pool_size">1</property>
-
-    <property name="hbm2ddl.auto">create</property>
-
-    <property name="show_sql">true</property>
-
-
+          <!-- c3p0 connection pool settings -->
+          <property name="hibernate.connection.provider_class" value="org.hibernate.service.jdbc.connections.internal.C3P0ConnectionProvider" />
+          <property name="hibernate.c3p0.min_size" value="1" />
+          <property name="hibernate.c3p0.max_size" value="5" />
+          <property name="hibernate.c3p0.acquire_increment" value="1" />
+          <property name="hibernate.c3p0.idle_test_period" value="3000" />
+          <property name="hibernate.c3p0.max_statements" value="50" />
+          <property name="hibernate.c3p0.timeout" value="1800" />
     <mapping class="com.jack.entity.User"/>
-
-
 
 </session-factory>
 </hibernate-configuration>
