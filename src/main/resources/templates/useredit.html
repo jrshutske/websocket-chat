@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container">
+    <p th:text="${user}"/>
+<form method="POST" action="/editsave"
+           th:modelAttribute="${user}">
+    <input label="name" path="userName">Name</input>
+    <input type="hidden" path="id"/>
+
+    <input type="submit" value="Submit" />
+</form>
+</div>
+</body>
+</html>

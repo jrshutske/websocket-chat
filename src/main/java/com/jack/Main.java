@@ -18,23 +18,13 @@ package com.jack;
 
 import com.jack.persistence.UserDao;
 import com.jack.entity.User;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.*;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.*;
 
 @Controller
@@ -51,25 +41,33 @@ public class Main {
   }
 
   @GetMapping("/users")
-  String users(Map<String, Object> model) {
+  String users(Model model) {
     UserDao userDao = new UserDao();
     List<User> rs = userDao.getAll();
-    ArrayList<String> output = new ArrayList<String>();
-    output.add("User from DB: " + rs);
-    model.put("records", output);
-    return "users";
+    model.addAttribute("users", rs);
+    return "users.html";
   }
 
   @GetMapping("/users/{id}")
-  String userbyid(@PathVariable int id, Map<String, Object> model){
+  String userbyid(@PathVariable int id, Model model) {
     UserDao userDao = new UserDao();
     User user = userDao.getById(id);
-    model.put("record", user);
+    model.addAttribute("user", user);
     return "user";
   }
 
-  @RequestMapping("/hello")
-  String hello() {
-    return "hello";
+  @GetMapping("/users/{id}/edit")
+  String edituserbyid(@PathVariable int id, Model model) {
+    UserDao userDao = new UserDao();
+    User user = userDao.getById(id);
+    model.addAttribute("user", user);
+    return "useredit";
+  }
+
+  @PostMapping("/editsave")
+  String submit(@ModelAttribute User user) {
+    UserDao userDao = new UserDao();
+    userDao.saveOrUpdate(user);
+    return "redirect:/users";
   }
 }
