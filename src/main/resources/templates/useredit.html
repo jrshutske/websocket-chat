@@ -3,13 +3,10 @@
 <body>
 <div class="container">
     <p th:text="${user}"/>
-<form method="POST" action="/editsave"
-           th:modelAttribute="${user}">
-    <input label="name" path="userName">Name</input>
-    <input type="hidden" path="id"/>
-
+    <form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <input type="text" th:field="*{userName}" name="username" id="username" placeholder="username">
     <input type="submit" value="Submit" />
-</form>
+    </form>
 </div>
 </body>
 </html>

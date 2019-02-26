@@ -5,6 +5,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import java.util.*;
 
 public class SessionFactoryProvider {
 
@@ -15,11 +16,18 @@ public class SessionFactoryProvider {
     }
 
     public static void createSessionFactory() {
+        Map<String,String> jdbcUrlSettings = new HashMap<>();
+        String jdbcDbUrl = System.getenv("JDBC_DATABASE_URL");
+        if (null != jdbcDbUrl) {
+            jdbcUrlSettings.put("hibernate.connection.url", System.getenv("JDBC_DATABASE_URL"));
+        }
 
-        StandardServiceRegistry standardRegistry =
-                new StandardServiceRegistryBuilder().configure().build();
-        Metadata metaData =
-                new MetadataSources(standardRegistry).getMetadataBuilder().build();
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().
+                configure("hibernate.cfg.xml").
+                applySettings(jdbcUrlSettings).
+                build();
+//        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure().build();
+        Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
         sessionFactory = metaData.getSessionFactoryBuilder().build();
     }
 

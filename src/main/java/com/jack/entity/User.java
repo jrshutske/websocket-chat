@@ -2,12 +2,14 @@ package com.jack.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
-@Entity(name = "User")
+@Entity
 @Table(name = "users")
 public class User {
 
   @Id
+  @Column(name="id")
   @GeneratedValue(strategy= GenerationType.AUTO, generator="native")
   @GenericGenerator(name = "native",strategy = "native")
   private int id;

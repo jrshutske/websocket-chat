@@ -24,7 +24,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.*;
 
-import java.util.ArrayList;
 import java.util.*;
 
 @Controller
@@ -40,34 +39,6 @@ public class Main {
     return "hello";
   }
 
-  @GetMapping("/users")
-  String users(Model model) {
-    UserDao userDao = new UserDao();
-    List<User> rs = userDao.getAll();
-    model.addAttribute("users", rs);
-    return "users.html";
-  }
 
-  @GetMapping("/users/{id}")
-  String userbyid(@PathVariable int id, Model model) {
-    UserDao userDao = new UserDao();
-    User user = userDao.getById(id);
-    model.addAttribute("user", user);
-    return "user";
-  }
 
-  @GetMapping("/users/{id}/edit")
-  String edituserbyid(@PathVariable int id, Model model) {
-    UserDao userDao = new UserDao();
-    User user = userDao.getById(id);
-    model.addAttribute("user", user);
-    return "useredit";
-  }
-
-  @PostMapping("/editsave")
-  String submit(@ModelAttribute User user) {
-    UserDao userDao = new UserDao();
-    userDao.saveOrUpdate(user);
-    return "redirect:/users";
-  }
 }
