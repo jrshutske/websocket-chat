@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
-<div class="container">
-    <p th:text="${user}"/>
-    <form action="#" th:action="@{/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+<div class="container main">
+    <form action="#" th:action="@{/user/{id}/update (id=${user.id})}" th:object="${user}" method="post">
         <input type="text" th:field="*{userName}" name="username" id="username" placeholder="username">
     <input type="submit" value="Submit" />
     </form>

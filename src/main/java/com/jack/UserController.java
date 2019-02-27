@@ -31,7 +31,7 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping("/user/{id}/edit")
     String edituserbyid(@PathVariable int id, Model model) {
         UserDao userDao = new UserDao();
         User user = userDao.getById(id);
@@ -39,13 +39,13 @@ public class UserController {
         return "useredit";
     }
 
-    @PostMapping(value = "/update/{id}")
+    @PostMapping(value = "/user/{id}/update")
     String submit(@PathVariable int id, @RequestParam("userName") String userName) {
         UserDao userDao = new UserDao();
         User user = userDao.getById(id);
         user.setUserName(userName);
         userDao.saveOrUpdate(user);
-        return "redirect:/users";
+        return "redirect:/user/{id}";
 
     }
 }
