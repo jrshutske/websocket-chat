@@ -16,15 +16,10 @@
 
 package com.jack;
 
-import com.jack.persistence.UserDao;
-import com.jack.entity.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.*;
-
-import java.util.*;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @SpringBootApplication

@@ -1,8 +1,8 @@
 package com.jack.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
@@ -29,8 +29,7 @@ public class User {
   @Column(name = "lastname")
   private String lastName;
 
-  public User() {
-  }
+  public User() {}
 
   public User(String userName, String password, String email, String firstName, String lastName) {
     this.userName = userName;
@@ -40,9 +39,7 @@ public class User {
     this.lastName = lastName;
   }
 
-  public int getId() {
-      return id;
-  }
+  public int getId() { return id; }
 
   public void setId(int id) {
       this.id = id;
@@ -86,15 +83,5 @@ public class User {
 
   public void setLastName(String lastName) {
       this.lastName = lastName;
-  }
-
-  @Override
-  public String toString() {
-      return "User{" +
-              "firstName='" + firstName + '\'' +
-              ", lastName='" + lastName + '\'' +
-              ", userName='" + userName + '\'' +
-              ", email='" + email + '\'' +
-              '}';
   }
 }
