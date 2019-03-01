@@ -1,4 +1,4 @@
-package com.jack;
+package com.jack.controller;
 
 import com.jack.entity.User;
 import com.jack.persistence.UserDao;

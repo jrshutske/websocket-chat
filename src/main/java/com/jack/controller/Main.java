@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jack;
+package com.jack.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
