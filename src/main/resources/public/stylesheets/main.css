@@ -31,4 +31,10 @@ body {
   background-color: #191919;
   color: white;
 }
+input {
+  color: black;
+}
+label {
+  color: white;
+}
 

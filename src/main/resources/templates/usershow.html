@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
 <div class="container main">
-<h1>Users</h1>
+<h1>User</h1>
 <table class="table table-sm table-dark" >
     <thead>
     <tr>
@@ -14,7 +14,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user: ${users}">
+    <tr>
         <td th:text="${user.id}" />
         <td th:text="${user.userName}" />
         <td th:text="${user.email}" />

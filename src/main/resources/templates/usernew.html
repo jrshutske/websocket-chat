@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
 <div class="container main">
-<h1>Edit User</h1>
-<form th:action="@{/user/{id}/update (id=${user.id})}" th:object="${user}" method="post">
+<h1>New User</h1>
+<form th:action="@{/user/create}" th:object="${user}" method="post" class="text-dark">
     <div class="form-group col-sm-12 col-md-8 col-lg-6">
     <label for="userName">username:</label>
     <input class="form-control" id="userName" type="text" th:field="*{userName}">
+    <label for="email">email:</label>
+    <input class="form-control" id="email" type="text" th:field="*{email}">
     <label for="firstName">firstname:</label>
     <input class="form-control" id="firstName" type="text" th:field="*{firstName}">
     <label for="lastName">lastname:</label>
