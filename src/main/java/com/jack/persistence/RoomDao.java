@@ -1,6 +1,6 @@
 package com.jack.persistence;
 
-import com.jack.entity.User;
+import com.jack.entity.Room;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -12,76 +12,76 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class UserDao {
+public class RoomDao {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
     SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     /**
-     * Get user by id
+     * Get room by id
      */
-    public User getById(int id) {
+    public Room getById(int id) {
         Session session = sessionFactory.openSession();
-        User user = session.get( User.class, id );
+        Room room = session.get( Room.class, id );
         session.close();
-        return user;
+        return room;
     }
 
     /**
-     * update user
-     * @param user  User to be inserted or updated
+     * update room
+     * @param room room to be inserted or updated
      */
-    public void saveOrUpdate(User user) {
+    public void saveOrUpdate(Room room) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.saveOrUpdate(user);
+        session.saveOrUpdate(room);
         transaction.commit();
         session.close();
     }
 
     /**
-     * update user
-     * @param user  User to be inserted or updated
+     * update room
+     * @param room  room to be inserted or updated
      */
-    public int insert(User user) {
+    public int insert(Room room) {
         int id = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        id = (int)session.save(user);
+        id = (int)session.save(room);
         transaction.commit();
         session.close();
         return id;
     }
 
     /**
-     * Delete a user
-     * @param user User to be deleted
+     * Delete a room
+     * @param room room to be deleted
      */
-    public void delete(User user) {
+    public void delete(Room room) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.delete(user);
+        session.delete(room);
         transaction.commit();
         session.close();
     }
 
 
-    /** Return a list of all users
+    /** Return a list of all rooms
      *
-     * @return All users
+     * @return All rooms
      */
-    public List<User> getAll() {
+    public List<Room> getAll() {
 
         Session session = sessionFactory.openSession();
 
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery( User.class );
-        Root<User> root = query.from( User.class );
-        List<User> users = session.createQuery( query ).getResultList();
+        CriteriaQuery<Room> query = builder.createQuery( Room.class );
+        Root<Room> root = query.from( Room.class );
+        List<Room> rooms = session.createQuery( query ).getResultList();
 
-        logger.debug("The list of users " + users);
+        logger.debug("The list of users " + rooms);
         session.close();
 
-        return users;
+        return rooms;
     }
 }

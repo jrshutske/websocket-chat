@@ -18,8 +18,8 @@ public class UserController {
     @GetMapping("/user")
     String users(Model model) {
         UserDao userDao = new UserDao();
-        List<User> rs = userDao.getAll();
-        model.addAttribute("users", rs);
+        List<User> users = userDao.getAll();
+        model.addAttribute("users", users);
         return "user";
     }
 
@@ -52,7 +52,7 @@ public class UserController {
         user.setLastName(lastName);
         user.setPassword(password);
         userDao.saveOrUpdate(user);
-        return "redirect:/user/{id}/show";
+        return "redirect:/user/{id}";
     }
 
     @GetMapping("/user/new")
@@ -75,9 +75,8 @@ public class UserController {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setPassword(password);
-        userDao.saveOrUpdate(user);
-        int id = user.getId();
-        return "redirect:/user/{id}";
+        int id = userDao.insert(user);
+        return "redirect:/user/" + id;
 
     }
 }

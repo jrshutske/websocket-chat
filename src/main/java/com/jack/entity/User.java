@@ -1,6 +1,7 @@
 package com.jack.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -28,6 +29,9 @@ public class User {
 
   @Column(name = "lastname")
   private String lastName;
+
+  @OneToMany(mappedBy="creator")
+  private Set<Room> rooms;
 
   public User() {}
 
