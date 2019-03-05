@@ -2,6 +2,7 @@ package com.jack.persistence;
 
 import com.jack.entity.User;
 import com.jack.entity.Room;
+import com.jack.utility.CleanDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,6 +23,8 @@ class RoomDaoTest {
 
     @BeforeEach
     void setUp() {
+        CleanDatabase cd = new CleanDatabase();
+        cd.runCleaner();
         userDao = new UserDao();
         User setUser = new User();
         setUser.setUserName("jackshutske");

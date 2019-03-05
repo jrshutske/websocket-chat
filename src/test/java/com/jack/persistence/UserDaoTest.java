@@ -1,6 +1,8 @@
 package com.jack.persistence;
 
 import com.jack.entity.User;
+import com.jack.entity.Room;
+import com.jack.utility.CleanDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class UserDaoTest {
 
     UserDao userDao;
+    RoomDao roomDao;
     User user;
     int userId;
 
-
     @BeforeEach
     void setUp() {
+        CleanDatabase cd = new CleanDatabase();
+        cd.runCleaner();
         userDao = new UserDao();
         User setUser = new User();
         setUser.setUserName("jackshutske");
@@ -63,4 +67,9 @@ class UserDaoTest {
         List<User> users = userDao.getAll();
         assertEquals(false, users.isEmpty());
     }
+
+    void deleteAll() {
+
+    }
+
 }
