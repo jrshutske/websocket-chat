@@ -4,6 +4,7 @@ import com.jack.entity.User;
 import com.jack.entity.Room;
 import com.jack.utility.CleanDatabase;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,8 +21,7 @@ class UserDaoTest {
 
     @BeforeEach
     void setUp() {
-        CleanDatabase cd = new CleanDatabase();
-        cd.runCleaner();
+
         userDao = new UserDao();
         User setUser = new User();
         setUser.setUserName("jackshutske");
@@ -68,8 +68,9 @@ class UserDaoTest {
         assertEquals(false, users.isEmpty());
     }
 
-    void deleteAll() {
-
+    @AfterAll
+    public static void AfterAll() {
+        CleanDatabase cd = new CleanDatabase();
+        cd.runCleaner();
     }
-
 }

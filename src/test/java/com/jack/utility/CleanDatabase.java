@@ -1,25 +1,19 @@
 package com.jack.utility;
 
-import com.jack.entity.Room;
-import com.jack.entity.User;
-import com.jack.persistence.RoomDao;
-import com.jack.persistence.UserDao;
-
-import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import com.jack.persistence.SessionFactoryProvider;
 
 public class CleanDatabase {
+    SessionFactory sessionFactory = SessionFactoryProvider.getSessionFactory();
 
     public void runCleaner() {
-        RoomDao roomDao = new RoomDao();
-        List<Room> roomsDelete = roomDao.getAll();
-        for (Room roomDelete : roomsDelete) {
-            roomDao.delete(roomDelete);
-        }
-        UserDao userDao = new UserDao();
-        List<User> usersDelete = userDao.getAll();
-        for (User userDelete : usersDelete) {
-            userDao.delete(userDelete);
-        }
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        session.createNativeQuery("TRUNCATE users CASCADE ").executeUpdate();
+        session.createNativeQuery("TRUNCATE rooms CASCADE").executeUpdate();
+        transaction.commit();
+        session.close();
     }
-
 }

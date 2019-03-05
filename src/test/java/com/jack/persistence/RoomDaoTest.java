@@ -5,7 +5,7 @@ import com.jack.entity.Room;
 import com.jack.utility.CleanDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.AfterAll;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,11 +20,9 @@ class RoomDaoTest {
     int roomId;
     int userId;
 
-
     @BeforeEach
     void setUp() {
-        CleanDatabase cd = new CleanDatabase();
-        cd.runCleaner();
+
         userDao = new UserDao();
         User setUser = new User();
         setUser.setUserName("jackshutske");
@@ -76,5 +74,11 @@ class RoomDaoTest {
     void getAll() {
         List<Room> rooms = roomDao.getAll();
         assertEquals(false, rooms.isEmpty());
+    }
+
+    @AfterAll
+    public static void AfterAll() {
+        CleanDatabase cd = new CleanDatabase();
+        cd.runCleaner();
     }
 }
