@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container main">
+<h1>New Room</h1>
+<form th:action="@{/room/create}" th:object="${room}" method="post" class="text-dark">
+    <div class="form-group col-sm-12 col-md-8 col-lg-6">
+    <label for="roomName">roomname:</label>
+    <input class="form-control" id="roomName" type="text" th:field="*{roomName}">
+    <label for="creator">creator:</label>
+    <input class="form-control" id="creator" type="number" th:field="*{creator}">
+    <br>
+    <input class="btn-lg btn-info mb-2" type="submit" value="submit" />
+    </div>
+    <br>
+</form>
+</div>
+</body>
+</html>

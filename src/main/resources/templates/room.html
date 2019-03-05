@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container main">
+<h1>Rooms</h1>
+<table class="table table-sm table-dark" >
+    <thead>
+    <tr>
+        <th scope="col">id</th>
+        <th scope="col">roomname</th>
+        <th scope="col">creator</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room: ${rooms}">
+        <td th:text="${room.id}" />
+        <td th:text="${room.roomName}" />
+        <td th:text="${room.creator.getUserName()}" />
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>
