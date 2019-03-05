@@ -3,8 +3,6 @@ package com.jack.persistence;
 import com.jack.entity.User;
 import com.jack.entity.Room;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,20 +14,20 @@ class RoomDaoTest {
 
     RoomDao roomDao;
     UserDao userDao;
-    int currentSize;
-    int roomId;
-    int userId;
     Room room;
     User user;
+    int roomId;
+    int userId;
+
 
     @BeforeEach
     void setUp() {
         userDao = new UserDao();
         User setUser = new User();
-        setUser.setUserName("jiffshutske");
-        setUser.setEmail("jiffshutske@gmail.com");
-        setUser.setFirstName("jiff");
-        setUser.setLastName("ekstuhs");
+        setUser.setUserName("jackshutske");
+        setUser.setEmail("jackshutske@gmail.com");
+        setUser.setFirstName("jack");
+        setUser.setLastName("shutske");
         setUser.setPassword("abc12345");
         userId = userDao.insert(setUser);
         user = userDao.getById(userId);
@@ -38,7 +36,7 @@ class RoomDaoTest {
         Room setRoom = new Room();
         setRoom.setRoomName("initialRoom");
         setRoom.setCreator(user);
-        int roomId = roomDao.insert(setRoom);
+        roomId = roomDao.insert(setRoom);
         room = roomDao.getById(roomId);
     }
 
@@ -74,5 +72,6 @@ class RoomDaoTest {
     @Test
     void getAll() {
         List<Room> rooms = roomDao.getAll();
+        assertEquals(false, rooms.isEmpty());
     }
 }

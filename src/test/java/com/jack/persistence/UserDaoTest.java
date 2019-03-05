@@ -2,73 +2,65 @@ package com.jack.persistence;
 
 import com.jack.entity.User;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-@TestMethodOrder(OrderAnnotation.class)
 class UserDaoTest {
 
     UserDao userDao;
-    static int currentSize;
-    static int createdId;
+    User user;
+    int userId;
+
 
     @BeforeEach
     void setUp() {
         userDao = new UserDao();
-    }
-
-    @Test
-    @Order(1)
-    void getById() {
-        User user = userDao.getById(1);
-        assertEquals("billyjohnson", user.getUserName());
-    }
-
-    @Test
-    @Order(2)
-    void saveOrUpdate() {
-        User beforeUser = userDao.getById(1);
-        beforeUser.setEmail("jeffjohnson@gmail.com");
-        userDao.saveOrUpdate(beforeUser);
-        User afterUser = userDao.getById(1);
-        assertEquals("jeffjohnson@gmail.com", afterUser.getEmail());
-    }
-
-    @Test
-    @Order(3)
-    void insert() {
         User setUser = new User();
-        setUser.setUserName("jiffshutske");
-        setUser.setEmail("jiffshutske@gmail.com");
-        setUser.setFirstName("jiff");
-        setUser.setLastName("ekstuhs");
+        setUser.setUserName("jackshutske");
+        setUser.setEmail("jackshutske@gmail.com");
+        setUser.setFirstName("jack");
+        setUser.setLastName("shutske");
         setUser.setPassword("abc12345");
-        createdId = userDao.insert(setUser);
-        User afterUser = userDao.getById(createdId);
-        assertEquals("jiffshutske@gmail.com", afterUser.getEmail());
-        List<User> users = userDao.getAll();
-        currentSize = users.size();
+        userId = userDao.insert(setUser);
+        user = userDao.getById(userId);
     }
 
     @Test
-    @Order(4)
+    void getById() {
+        User user = userDao.getById(userId);
+        assertEquals("jackshutske", user.getUserName());
+    }
+
+    @Test
+    void saveOrUpdate() {
+        User beforeUser = userDao.getById(userId);
+        beforeUser.setEmail("johnshutske@gmail.com");
+        userDao.saveOrUpdate(beforeUser);
+        User afterUser = userDao.getById(userId);
+        assertEquals("johnshutske@gmail.com", afterUser.getEmail());
+    }
+
+    @Test
+    void insert() {
+        userId = userDao.insert(user);
+        user = userDao.getById(userId);
+        assertEquals("jackshutske@gmail.com", user.getEmail());
+    }
+
+    @Test
     void delete() {
-        User user = userDao.getById(createdId);
+        User user = userDao.getById(userId);
         userDao.delete(user);
-        assertNull(userDao.getById(createdId));
+        assertNull(userDao.getById(userId));
     }
 
     @Test
-    @Order(5)
     void getAll() {
         List<User> users = userDao.getAll();
-        assertEquals(currentSize - 1, users.size());
+        assertEquals(false, users.isEmpty());
     }
 }
