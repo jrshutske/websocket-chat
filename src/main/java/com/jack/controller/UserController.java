@@ -2,6 +2,7 @@ package com.jack.controller;
 
 import com.jack.entity.User;
 import com.jack.persistence.UserDao;
+import com.jack.persistence.GenericDao;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,32 +10,38 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 @Controller
 @SpringBootApplication
 public class UserController {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
+
     @GetMapping("/user")
     String users(Model model) {
-        UserDao userDao = new UserDao();
-        List<User> users = userDao.getAll();
+        GenericDao dao = new GenericDao(User.class);
+        List<User> users = dao.getAll();
         model.addAttribute("users", users);
         return "user";
     }
 
     @GetMapping("/user/{id}")
     String getuserbyid(@PathVariable int id, Model model) {
-        UserDao userDao = new UserDao();
-        User user = userDao.getById(id);
+        GenericDao dao = new GenericDao(User.class);
+        User user = (User)dao.getById(id);
         model.addAttribute("user", user);
+        logger.info("Getting user: " + user);
         return "usershow";
     }
 
     @GetMapping("/user/{id}/edit")
     String edituser(@PathVariable int id, Model model) {
-        UserDao userDao = new UserDao();
-        User user = userDao.getById(id);
+        GenericDao dao = new GenericDao(User.class);
+        User user = (User)dao.getById(id);
         model.addAttribute("user", user);
         return "useredit";
     }
@@ -45,13 +52,13 @@ public class UserController {
                       @RequestParam("firstName") String firstName,
                       @RequestParam("lastName") String lastName,
                       @RequestParam("password") String password) {
-        UserDao userDao = new UserDao();
-        User user = userDao.getById(id);
+        GenericDao dao = new GenericDao(User.class);
+        User user = (User)dao.getById(id);
         user.setUserName(userName);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(password);
-        userDao.saveOrUpdate(user);
+        dao.saveOrUpdate(user);
         return "redirect:/user/{id}";
     }
 
@@ -68,14 +75,14 @@ public class UserController {
                       @RequestParam("lastName") String lastName,
                       @RequestParam("email") String email,
                       @RequestParam("password") String password) {
-        UserDao userDao = new UserDao();
+        GenericDao dao = new GenericDao(User.class);
         User user = new User();
         user.setUserName(userName);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
         user.setPassword(password);
-        int id = userDao.insert(user);
+        int id = dao.insert(user);
         return "redirect:/user/" + id;
 
     }

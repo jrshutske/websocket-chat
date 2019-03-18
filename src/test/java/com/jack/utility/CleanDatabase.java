@@ -11,7 +11,7 @@ public class CleanDatabase {
     public void runCleaner() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        session.createNativeQuery("TRUNCATE users CASCADE ").executeUpdate();
+        session.createNativeQuery("TRUNCATE users CASCADE").executeUpdate();
         session.createNativeQuery("TRUNCATE rooms CASCADE").executeUpdate();
         transaction.commit();
         session.close();

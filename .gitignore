@@ -11,3 +11,4 @@ docs/deploying-spring-boot-apps/
 **/.DS_Store
 */.DS_Store
 .DS_Store
+logs/*
