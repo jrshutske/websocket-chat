@@ -6,7 +6,7 @@
 <form th:action="@{/user/{id}/update (id=${user.id})}" th:object="${user}" method="post">
     <div class="form-group col-sm-12 col-md-8 col-lg-6">
     <label for="userName">username:</label>
-    <input class="form-control" id="userName" type="text" th:field="*{userName}">
+    <input class="form-control" id="username" type="text" th:field="*{username}">
     <label for="firstName">firstname:</label>
     <input class="form-control" id="firstName" type="text" th:field="*{firstName}">
     <label for="lastName">lastname:</label>

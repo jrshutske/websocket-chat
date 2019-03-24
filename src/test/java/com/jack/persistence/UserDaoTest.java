@@ -24,7 +24,7 @@ class UserDaoTest {
 
         userDao = new UserDao();
         User setUser = new User();
-        setUser.setUserName("jackshutske");
+        setUser.setUsername("jackshutske");
         setUser.setEmail("jackshutske@gmail.com");
         setUser.setFirstName("jack");
         setUser.setLastName("shutske");
@@ -36,7 +36,7 @@ class UserDaoTest {
     @Test
     void getById() {
         User user = userDao.getById(userId);
-        assertEquals("jackshutske", user.getUserName());
+        assertEquals("jackshutske", user.getUsername());
     }
 
     @Test

@@ -25,7 +25,7 @@ class RoomDaoTest {
 
         userDao = new UserDao();
         User setUser = new User();
-        setUser.setUserName("jackshutske");
+        setUser.setUsername("jackshutske");
         setUser.setEmail("jackshutske@gmail.com");
         setUser.setFirstName("jack");
         setUser.setLastName("shutske");

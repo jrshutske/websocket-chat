@@ -3,16 +3,18 @@
 <body>
   <div class="container">
     <div class="jumbotron text-center">
-    <a href="/" class="lang-logo">
-      <img src="lang-logo.png" alt="">
-    </a>
+
+      <div th:if="${#httpServletRequest.remoteUser}">
+      <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+      </div>
+
     <h1>java-websocket-chat</h1>
     <p>This is a Java application deployed to Heroku. It's a reasonably simple app - but a good foundation for understanding how web sockets and spring work..</p>
-    <a type="button" class="btn btn-lg btn-default" href="#"> Join a Room</a>
+    <a type="button" class="btn btn-lg btn-warning" href="#"> Join a Room</a>
     <a type="button" class="btn btn-lg btn-primary" href="/room/new"> Create a Room</a>
   </div>
 </div>
-<div class="container main">
+<div class="container bg-dark">
   <br>
   <div class="alert alert-info text-center" role="alert">
     To deploy your own copy, and learn the fundamentals of spring and web sockets, head over to <a href="https://github.com/jrshutske/websocket-chat" class="alert-link">websocket-chat</a>.
@@ -23,7 +25,6 @@
       <h3><span class="glyphicon glyphicon-info-sign"></span> How this sample app works</h3>
       <ul>
         <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/java-getting-started">Heroku Button</a> on the repository.</li>
-
         <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/java-getting-started/blob/master/pom.xml">pom.xml</a>, creating a slug.</li>
         <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
         <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
@@ -32,14 +33,19 @@
     <div class="col-md-6">
       <h3><span class="glyphicon glyphicon-link"></span> Next Steps</h3>
       <ul>
+        <li>
+          To deploy your own copy, and learn the fundamentals of spring and web sockets, head over to
+          <a href="https://github.com/jrshutske/websocket-chat" class="alert-link">websocket-chat</a>
+        </li>
         <li>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</li>
         <li>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</li>
-        <ul>
-          <li><code>git clone https://github.com/jrshutske/websocket-chat.git</code> - this will create a local copy of the source code for the app</li>
-          <li><code>cd websocket-chat</code> - change directory into the local source code repository</li>
-          <li><code>heroku git:remote -a &lt;your-app-name></code> - associate the Heroku app with the repository</li>
-          <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-java#push-local-changes">deploy changes</a> to Heroku</li>
-        </ul>
+        <div class="alert alert-primary" role="alert">
+          To deploy your own copy, and learn the fundamentals of spring and web sockets, head over to
+          <a href="https://github.com/jrshutske/websocket-chat" class="alert-link">websocket-chat</a>.
+          git clone https://github.com/jrshutske/websocket-chat.git</div>
+        <div class="alert alert-primary" role="alert">cd websocket-chat</div>
+        <div class="alert alert-primary" role="alert">heroku git:remote -a &lt;your-app-name></div>
+        <li>You'll now be set up to run the app locally, or <a href="https://devcenter.heroku.com/articles/getting-started-with-java#push-local-changes">deploy changes</a> to Heroku</li>
       </ul>
     </div>
   </div> <!-- row -->

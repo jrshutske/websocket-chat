@@ -15,7 +15,7 @@
     <tr th:each="room: ${rooms}">
         <td th:text="${room.id}" />
         <td th:text="${room.roomName}" />
-        <td th:text="${room.creator.getUserName()}" />
+        <td th:text="${room.creator.getUsername()}" />
     </tr>
     </tbody>
 </table>

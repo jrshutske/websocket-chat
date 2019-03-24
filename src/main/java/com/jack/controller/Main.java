@@ -33,5 +33,8 @@ public class Main {
   String index() {
     return "index";
   }
-
+  @GetMapping("/login")
+  String login() {
+    return "login";
+  }
 }

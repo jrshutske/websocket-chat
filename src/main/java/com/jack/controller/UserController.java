@@ -1,7 +1,6 @@
 package com.jack.controller;
 
 import com.jack.entity.User;
-import com.jack.persistence.UserDao;
 import com.jack.persistence.GenericDao;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -13,13 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 @SpringBootApplication
 public class UserController {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
+
+
+
 
     @GetMapping("/user")
     String users(Model model) {
@@ -48,13 +50,13 @@ public class UserController {
 
     @PostMapping(value = "/user/{id}/update")
     String updateuser(@PathVariable int id,
-                      @RequestParam("userName") String userName,
+                      @RequestParam("username") String username,
                       @RequestParam("firstName") String firstName,
                       @RequestParam("lastName") String lastName,
                       @RequestParam("password") String password) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
-        user.setUserName(userName);
+        user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(password);
@@ -70,14 +72,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/create")
-    String createuser(@RequestParam("userName") String userName,
+    String createuser(@RequestParam("username") String username,
                       @RequestParam("firstName") String firstName,
                       @RequestParam("lastName") String lastName,
                       @RequestParam("email") String email,
                       @RequestParam("password") String password) {
+
         GenericDao dao = new GenericDao(User.class);
         User user = new User();
-        user.setUserName(userName);
+        user.setUsername(username);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setEmail(email);
