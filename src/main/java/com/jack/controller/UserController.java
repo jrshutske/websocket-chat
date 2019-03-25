@@ -2,7 +2,10 @@ package com.jack.controller;
 
 import com.jack.entity.User;
 import com.jack.persistence.GenericDao;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +14,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 
 @Controller
 @SpringBootApplication
+@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 public class UserController {
 
+    private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
+    @Autowired
+    public UserController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
+        this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
+    }
     private final Logger logger = LogManager.getLogger(this.getClass());
-
-
 
 
     @GetMapping("/user")
@@ -86,6 +97,14 @@ public class UserController {
         user.setEmail(email);
         user.setPassword(password);
         int id = dao.insert(user);
+        UserDetails userDetails =
+                org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
+                        .username(username)
+                        .password(password)
+                        .roles("USER")
+                        .build();
+        inMemoryUserDetailsManager.createUser(userDetails);
+        logger.info("the user that isnt created: " + userDetails);
         return "redirect:/user/" + id;
 
     }

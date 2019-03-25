@@ -17,6 +17,8 @@ import java.util.List;
 @Controller
 @SpringBootApplication
 public class RoomController {
+
+
     @GetMapping("/room")
     String rooms(Model model) {
         RoomDao roomDao = new RoomDao();
