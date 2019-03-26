@@ -88,7 +88,6 @@ public class UserController {
                       @RequestParam("lastName") String lastName,
                       @RequestParam("email") String email,
                       @RequestParam("password") String password) {
-
         GenericDao dao = new GenericDao(User.class);
         User user = new User();
         user.setUsername(username);
@@ -96,16 +95,20 @@ public class UserController {
         user.setLastName(lastName);
         user.setEmail(email);
         user.setPassword(password);
-        int id = dao.insert(user);
         UserDetails userDetails =
                 org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
                         .username(username)
                         .password(password)
                         .roles("USER")
                         .build();
-        inMemoryUserDetailsManager.createUser(userDetails);
-        logger.info("the user that isnt created: " + userDetails);
-        return "redirect:/user/" + id;
-
+        if(!inMemoryUserDetailsManager.userExists(username)) {
+            int id = dao.insert(user);
+            inMemoryUserDetailsManager.createUser(userDetails);
+            logger.info("the user that is created: " + username);
+            return "redirect:/user/" + id;
+        }
+        else {
+            return "redirect:/user/new?error";
+        }
     }
 }

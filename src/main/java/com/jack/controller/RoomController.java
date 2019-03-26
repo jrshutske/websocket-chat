@@ -2,6 +2,7 @@ package com.jack.controller;
 
 import com.jack.entity.Room;
 import com.jack.entity.User;
+import com.jack.persistence.GenericDao;
 import com.jack.persistence.UserDao;
 import com.jack.persistence.RoomDao;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ public class RoomController {
 
     @GetMapping("/room")
     String rooms(Model model) {
-        RoomDao roomDao = new RoomDao();
+        GenericDao roomDao = new GenericDao(Room.class);
         List<Room> rooms = roomDao.getAll();
         model.addAttribute("rooms", rooms);
         return "room";
@@ -29,16 +30,16 @@ public class RoomController {
 
     @GetMapping("/room/{id}")
     String getroombyid(@PathVariable int id, Model model) {
-        RoomDao roomDao = new RoomDao();
-        Room room = roomDao.getById(id);
+        GenericDao roomDao = new GenericDao(Room.class);
+        Room room = (Room)roomDao.getById(id);
         model.addAttribute("room", room);
         return "roomshow";
     }
 
     @GetMapping("/room/{id}/edit")
     String editroom(@PathVariable int id, Model model) {
-        RoomDao roomDao = new RoomDao();
-        Room room = roomDao.getById(id);
+        GenericDao roomDao = new GenericDao(Room.class);
+        Room room = (Room)roomDao.getById(id);
         model.addAttribute("room", room);
         return "roomedit";
     }
@@ -46,8 +47,8 @@ public class RoomController {
     @PostMapping(value = "/room/{id}/update")
     String updateroom(@PathVariable int id,
                       @RequestParam("roomName") String roomName) {
-        RoomDao roomDao = new RoomDao();
-        Room room = roomDao.getById(id);
+        GenericDao roomDao = new GenericDao(Room.class);
+        Room room = (Room)roomDao.getById(id);
         room.setRoomName(roomName);
         roomDao.saveOrUpdate(room);
         return "redirect:/room/{id}/show";
@@ -63,9 +64,9 @@ public class RoomController {
     @PostMapping(value = "/room/create")
     String createroom(@RequestParam("roomName") String roomName,
                       @RequestParam("creator") String creatorId) {
-        RoomDao roomDao = new RoomDao();
-        UserDao userDao = new UserDao();
-        User creator = userDao.getById(Integer.parseInt(creatorId));
+        GenericDao roomDao = new GenericDao(Room.class);
+        GenericDao userDao = new GenericDao(User.class);
+        User creator = (User)userDao.getById(Integer.parseInt(creatorId));
         Room room = new Room();
         room.setRoomName(roomName);
         room.setCreator(creator);

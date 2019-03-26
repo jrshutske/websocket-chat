@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 
 import java.util.*;
 
+
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -26,21 +27,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/", "/user/new", "/user/create").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").defaultSuccessUrl("/", true)
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(inMemoryUserDetailsManager());
+            .authorizeRequests()
+            .antMatchers("/", "/user/new", "/user/create").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login").defaultSuccessUrl("/", true)
+            .permitAll()
+            .and()
+            .logout()
+            .permitAll();
     }
 
     @Bean

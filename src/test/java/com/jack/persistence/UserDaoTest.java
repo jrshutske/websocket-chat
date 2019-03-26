@@ -14,15 +14,15 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class UserDaoTest {
 
-    UserDao userDao;
-    RoomDao roomDao;
+    GenericDao userDao;
+    GenericDao roomDao;
     User user;
     int userId;
 
     @BeforeEach
     void setUp() {
 
-        userDao = new UserDao();
+        userDao = new GenericDao(User.class);
         User setUser = new User();
         setUser.setUsername("jackshutske");
         setUser.setEmail("jackshutske@gmail.com");
@@ -30,34 +30,34 @@ class UserDaoTest {
         setUser.setLastName("shutske");
         setUser.setPassword("abc12345");
         userId = userDao.insert(setUser);
-        user = userDao.getById(userId);
+        user = (User)userDao.getById(userId);
     }
 
     @Test
     void getById() {
-        User user = userDao.getById(userId);
+        User user = (User)userDao.getById(userId);
         assertEquals("jackshutske", user.getUsername());
     }
 
     @Test
     void saveOrUpdate() {
-        User beforeUser = userDao.getById(userId);
+        User beforeUser = (User)userDao.getById(userId);
         beforeUser.setEmail("johnshutske@gmail.com");
         userDao.saveOrUpdate(beforeUser);
-        User afterUser = userDao.getById(userId);
+        User afterUser = (User)userDao.getById(userId);
         assertEquals("johnshutske@gmail.com", afterUser.getEmail());
     }
 
     @Test
     void insert() {
         userId = userDao.insert(user);
-        user = userDao.getById(userId);
+        user = (User)userDao.getById(userId);
         assertEquals("jackshutske@gmail.com", user.getEmail());
     }
 
     @Test
     void delete() {
-        User user = userDao.getById(userId);
+        User user = (User)userDao.getById(userId);
         userDao.delete(user);
         assertNull(userDao.getById(userId));
     }

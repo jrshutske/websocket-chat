@@ -73,7 +73,7 @@
                         </form>
                     </div>
                     <div th:unless="${#httpServletRequest.remoteUser}">
-                        <button type="button" class="btn-lg btn-outline-secondary text-dark"><a href="/login">Login</a></button>
+                        <button type="button" class="btn-lg btn-outline-secondary text-dark" onclick="location.href='/login'">Login</button>
                     </div>
 
                 </li>

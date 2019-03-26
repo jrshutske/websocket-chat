@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 class RoomDaoTest {
 
-    RoomDao roomDao;
-    UserDao userDao;
+    GenericDao roomDao;
+    GenericDao userDao;
     Room room;
     User user;
     int roomId;
@@ -23,7 +23,7 @@ class RoomDaoTest {
     @BeforeEach
     void setUp() {
 
-        userDao = new UserDao();
+        userDao = new GenericDao(User.class);
         User setUser = new User();
         setUser.setUsername("jackshutske");
         setUser.setEmail("jackshutske@gmail.com");
@@ -31,41 +31,41 @@ class RoomDaoTest {
         setUser.setLastName("shutske");
         setUser.setPassword("abc12345");
         userId = userDao.insert(setUser);
-        user = userDao.getById(userId);
+        user = (User)userDao.getById(userId);
 
-        roomDao = new RoomDao();
+        roomDao = new GenericDao(Room.class);
         Room setRoom = new Room();
         setRoom.setRoomName("initialRoom");
         setRoom.setCreator(user);
         roomId = roomDao.insert(setRoom);
-        room = roomDao.getById(roomId);
+        room = (Room)roomDao.getById(roomId);
     }
 
     @Test
     void getById() {
-        Room room = roomDao.getById(roomId);
+        Room room = (Room)roomDao.getById(roomId);
         assertEquals("initialRoom", room.getRoomName());
     }
 
     @Test
     void saveOrUpdate() {
-        Room room = roomDao.getById(roomId);
+        Room room = (Room)roomDao.getById(roomId);
         room.setRoomName("newRoom");
         roomDao.saveOrUpdate(room);
-        Room afterRoom = roomDao.getById(roomId);
+        Room afterRoom = (Room)roomDao.getById(roomId);
         assertEquals("newRoom", afterRoom.getRoomName());
     }
 
     @Test
     void insert() {
         roomId = roomDao.insert(room);
-        room = roomDao.getById(roomId);
+        room = (Room)roomDao.getById(roomId);
         assertEquals("initialRoom", room.getRoomName());
     }
 
     @Test
     void delete() {
-        Room room = roomDao.getById(roomId);
+        Room room = (Room)roomDao.getById(roomId);
         roomDao.delete(room);
         assertNull(roomDao.getById(roomId));
     }

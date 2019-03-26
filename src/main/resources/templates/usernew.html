@@ -3,6 +3,7 @@
 <body>
 <div class="container main">
 <h1>New User</h1>
+<div class="text-danger" th:if="${param.error}">That username is taken!</div>
 <form th:action="@{/user/create}" th:object="${user}" method="post" class="text-dark">
     <div class="form-group col-sm-12 col-md-8 col-lg-6">
     <label for="userName">username:</label>
@@ -14,7 +15,7 @@
     <label for="lastName">lastname:</label>
     <input class="form-control" id="lastName" type="text" th:field="*{lastName}">
     <label for="password">password:</label>
-    <input class="form-control" id="password" type="text" th:field="*{password}">
+    <input class="form-control" id="password" type="password" th:field="*{password}">
     <br>
     <input class="btn-lg btn-info mb-2" type="submit" value="submit" />
     </div>
