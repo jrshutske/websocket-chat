@@ -1,11 +1,11 @@
 .jumbotron {
-  background: #532F8C;
+  background: #662c00;
   color: white; }
   .jumbotron .btn-primary {
-    background: #845ac7;
-    border-color: #845ac7; }
+    background: #c78f00;
+    border-color: #c16900; }
     .jumbotron .btn-primary:hover {
-      background: #7646c1; }
+      background: #4f3300; }
   .jumbotron p {
     color: #d9ccee;
     max-width: 75%;
@@ -23,10 +23,10 @@
     border: 2px solid white; }
     .jumbotron .lang-logo img {
       max-width: 100%; }
-.main {
-  background-color: #545454;
-  color: white;
-}
+  .main {
+     background-color: #545454;
+     color: white;
+   }
 body {
   background-color: #191919;
   color: white;

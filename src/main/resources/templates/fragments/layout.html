@@ -1,24 +1,23 @@
 <html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (template, menu)">
 <head>
-    <title>websocket-chat</title>
+    <title>wow-api</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
     <style>
         input {
             font-size: 32px;
         }
         .jumbotron {
-            background: #532F8C;
+            background: #4f3300;
             color: white; }
         .jumbotron .btn-primary {
-            background: #845ac7;
-            border-color: #845ac7; }
+            background: #b87100;
+            border-color: #a94200; }
         .jumbotron .btn-primary:hover {
-            background: #7646c1; }
+            background: #662800; }
         .jumbotron p {
             color: #d9ccee;
             max-width: 75%;
@@ -36,10 +35,6 @@
             border: 2px solid white; }
         .jumbotron .lang-logo img {
             max-width: 100%; }
-        .main {
-            background-color: #545454;
-            color: white;
-        }
         button > a, .alert-link {
             text-decoration: none !important;
             color: black !important;
@@ -48,34 +43,63 @@
             background-color: #191919;
             color: white;
         }
+        .navbar {
+            background-color: #4f3300;
+        }
         input {
             color: black;
         }
         label {
             color: white;
         }
+        td > a{
+            color: white
+        }
+        td > a:hover {
+            color: #d9ccee;
+        }
+        .listing {
+            opacity: 0.6;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .listing:hover {
+            opacity: 1;
+        }
+        i {
+            text-shadow: 0 0px 3px #000000;
+        }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
+<nav class="navbar navbar-expand-lg fixed-top" role="navigation">
     <div class="container">
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a href="/" class="nav-link"><i class="fas fa-home fa-3x"></i></i></a></li>
-                <li class="nav-item"><a href="/user" class="nav-link"><i class="fas fa-users fa-3x"></i></a></li>
-                <li class="nav-item"><a href="/room" class="nav-link"><i class="fas fa-person-booth fa-3x"></i></a></li>
+                <li class="nav-item">
+                    <a href="/" class="nav-link">
+                        <i class="fas fa-home fa-3x text-warning"></i>
+                        </i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/user" class="nav-link">
+                        <i class="fas fa-users fa-3x text-warning"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/character" class="nav-link">
+                        <i class="fas fa-khanda fa-3x text-warning"></i>
+                    </a>
+                </li>
             </ul>
             <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
                     <div th:if="${#httpServletRequest.remoteUser}">
                         <form th:action="@{/logout}" method="post">
-                            <input class="btn-lg btn-outline-secondary text-dark" type="submit" value="Logout"/>
+                            <button class="fas fa-sign-out-alt fa-3x btn-warning rounded"></button>
                         </form>
                     </div>
-                    <div th:unless="${#httpServletRequest.remoteUser}">
-                        <button type="button" class="btn-lg btn-outline-secondary text-dark" onclick="location.href='/login'">Login</button>
-                    </div>
-
                 </li>
             </ul>
         </div>
@@ -86,8 +110,57 @@
 
 <div th:replace="${template}"/>
 
+<div class="container bg-dark">
+    <br>
+    <div class="alert alert-info text-center" role="alert">
+        To deploy your own copy, and learn the fundamentals of spring and the blizzard api, head over to <a href="https://github.com/jrshutske/wow-api" class="alert-link">wow-api</a>.
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-info-sign"></span> How this app works</h3>
+            <ul>
+                <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/java-getting-started">Heroku Button</a> on the repository.</li>
+                <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/java-getting-started/blob/master/pom.xml">pom.xml</a>, creating a slug.</li>
+                <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
+                <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
+            </ul>
+            <div class="alert alert-primary" role="alert">heroku ps:scale web=2</div>
+        </div>
+        <div class="col-md-6">
+            <h3><span class="glyphicon glyphicon-link"></span>Next Steps</h3>
+            <p>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</p>
+            <p>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</p>
+            <div class="alert alert-primary" role="alert">git clone https://github.com/jrshutske/wow-api.git</div>
+            <div class="alert alert-primary" role="alert">cd wow-api</div>
+            <div class="alert alert-primary" role="alert">heroku git:remote -a &lt;your-app-name></div>
+        </div>
+    </div> <!-- row -->
+    <div class="text-center">
+        <a href="#" class="m-3"><i class="fab fa-github-square fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-gitlab fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-spotify fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-discord fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fas fa-user-astronaut fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-btc fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-linkedin-in fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-qq fa-4x text-info"></i></a>
+        <a href="#" class="m-3"><i class="fab fa-weibo fa-4x text-info"></i></a>
+    </div>
+    <br>
+    <div class="alert alert-info text-center" role="alert">
+        Please do check out my github account for other cool projects and enjoy your time here.
+    </div>
+    <br>
+</div>
+
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script>
+    function rowClicked(value) {
+        location.href = value;
+    }
+</script>
 </body>
 </html>

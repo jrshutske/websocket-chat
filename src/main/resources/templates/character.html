@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container bg-secondary">
+<h1 class="text-light">All Duelers</h1>
+<a type="button" class="btn btn-sm btn-warning" href="/character/new">Link a character</a>
+<br><br>
+    <div class="table-responsive">
+            <table class="table table-lg table-striped text-light" >
+            <thead>
+            <tr>
+                <th class="h5" scope="col">id</th>
+                <th class="h5" scope="col">charactername</th>
+                <th class="h5" scope="col">creator</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="listing" th:onclick="'javascript:rowClicked(\'/character/' + ${character.id} + '\');'"  th:each="character: ${characters}">
+                <td class="h3" th:text="${character.id}" />
+                <td class="h3" th:text="${character.charactername}" />
+                <td class="h3" th:text="${character.creator.getUsername()}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

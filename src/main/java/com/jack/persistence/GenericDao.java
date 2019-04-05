@@ -1,6 +1,6 @@
 package com.jack.persistence;
 
-import com.jack.entity.Room;
+import com.jack.entity.Character;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -24,12 +24,14 @@ public class GenericDao<T> {
         this.type = type;
     }
 
+
     public <T>T getById(int id) {
         Session session = getSession();
         T entity = (T)session.get(type, id);
         session.close();
         return entity;
     }
+
 
     public void saveOrUpdate(T entity) {
         Session session = getSession();

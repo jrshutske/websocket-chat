@@ -1,7 +1,7 @@
 package com.jack.persistence;
 
 import com.jack.entity.User;
-import com.jack.entity.Room;
+import com.jack.entity.Character;
 import com.jack.utility.CleanDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterAll;
@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class UserDaoTest {
 
     GenericDao userDao;
-    GenericDao roomDao;
+    GenericDao characterDao;
     User user;
     int userId;
 
@@ -25,9 +25,9 @@ class UserDaoTest {
         userDao = new GenericDao(User.class);
         User setUser = new User();
         setUser.setUsername("jackshutske");
-        setUser.setEmail("jackshutske@gmail.com");
-        setUser.setFirstName("jack");
-        setUser.setLastName("shutske");
+        setUser.setContact("jackshutske@gmail.com");
+        setUser.setFirstname("jack");
+        setUser.setLastname("shutske");
         setUser.setPassword("abc12345");
         userId = userDao.insert(setUser);
         user = (User)userDao.getById(userId);
@@ -42,17 +42,17 @@ class UserDaoTest {
     @Test
     void saveOrUpdate() {
         User beforeUser = (User)userDao.getById(userId);
-        beforeUser.setEmail("johnshutske@gmail.com");
+        beforeUser.setContact("johnshutske@gmail.com");
         userDao.saveOrUpdate(beforeUser);
         User afterUser = (User)userDao.getById(userId);
-        assertEquals("johnshutske@gmail.com", afterUser.getEmail());
+        assertEquals("johnshutske@gmail.com", afterUser.getContact());
     }
 
     @Test
     void insert() {
         userId = userDao.insert(user);
         user = (User)userDao.getById(userId);
-        assertEquals("jackshutske@gmail.com", user.getEmail());
+        assertEquals("jackshutske@gmail.com", user.getContact());
     }
 
     @Test

@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
-<div class="container main">
-<h1>New User</h1>
-<div class="text-danger" th:if="${param.error}">That username is taken!</div>
-<form th:action="@{/user/create}" th:object="${user}" method="post" class="text-dark">
-    <div class="form-group col-sm-12 col-md-8 col-lg-6">
-    <label for="userName">username:</label>
-    <input class="form-control" id="username" type="text" th:field="*{username}">
-    <label for="email">email:</label>
-    <input class="form-control" id="email" type="text" th:field="*{email}">
-    <label for="firstName">firstname:</label>
-    <input class="form-control" id="firstName" type="text" th:field="*{firstName}">
-    <label for="lastName">lastname:</label>
-    <input class="form-control" id="lastName" type="text" th:field="*{lastName}">
-    <label for="password">password:</label>
-    <input class="form-control" id="password" type="password" th:field="*{password}">
-    <br>
-    <input class="btn-lg btn-info mb-2" type="submit" value="submit" />
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Registration</h1>
+        <div class="alert alert-warning" th:if="${param.error}">That username is taken!</div>
+        <form class="text-center text-dark" th:action="@{/user/create}" th:object="${user}" method="post">
+            <div class="form-group col-sm-12 col-md-8 col-lg-6">
+            <label for="username">username:</label>
+            <input class="form-control" id="username" type="text" th:field="*{username}">
+            <label for="contact">contact:</label>
+            <input class="form-control" id="contact" type="text" th:field="*{contact}">
+            <label for="firstname">firstname:</label>
+            <input class="form-control" id="firstname" type="text" th:field="*{firstname}">
+            <label for="lastname">lastname:</label>
+            <input class="form-control" id="lastname" type="text" th:field="*{lastname}">
+            <label for="password">password:</label>
+            <input class="form-control" id="password" type="password" th:field="*{password}">
+            <br>
+            <input class="btn btn-lg btn-info mb-2" type="submit" value="submit" />
+            </div>
+            <br>
+        </form>
     </div>
-    <br>
-</form>
 </div>
 </body>
 </html>

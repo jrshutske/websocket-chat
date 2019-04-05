@@ -32,23 +32,23 @@ public class User {
 
   @Getter
   @Setter
-  @Column(name = "email")
-  private String email;
+  @Column(name = "contact")
+  private String contact;
 
   @Getter
   @Setter
   @Column(name = "firstname")
-  private String firstName;
+  private String firstname;
 
   @Getter
   @Setter
   @Column(name = "lastname")
-  private String lastName;
+  private String lastname;
 
   @Getter
   @Setter
-  @OneToMany(mappedBy="creator")
-  private Set<Room> rooms;
+  @OneToMany(mappedBy="creator", fetch=FetchType.EAGER)
+  private Set<Character> characters;
 
   public User() {}
 }

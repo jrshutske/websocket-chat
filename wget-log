@@ -1,0 +1,6 @@
+--2019-04-03 16:49:20--  https://us.battle.net/oauth/token?client_id=f0315fe57d76491695b77140f61ffda3
+Resolving us.battle.net (us.battle.net)... 24.105.29.40
+Connecting to us.battle.net (us.battle.net)|24.105.29.40|:443... connected.
+HTTP request sent, awaiting response... 401 Unauthorized
+
+Username/Password Authentication Failed.

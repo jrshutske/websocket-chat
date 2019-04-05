@@ -18,6 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Controller
@@ -46,8 +47,9 @@ public class UserController {
     String getuserbyid(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
+        logger.info("Getting characters: " + user.getCharacters());
         model.addAttribute("user", user);
-        logger.info("Getting user: " + user);
+
         return "usershow";
     }
 
@@ -61,15 +63,22 @@ public class UserController {
 
     @PostMapping(value = "/user/{id}/update")
     String updateuser(@PathVariable int id,
-                      @RequestParam("username") String username,
-                      @RequestParam("firstName") String firstName,
-                      @RequestParam("lastName") String lastName,
+                      @RequestParam("contact") String contact,
+                      @RequestParam("firstname") String firstname,
+                      @RequestParam("lastname") String lastname,
                       @RequestParam("password") String password) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
-        user.setUsername(username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        UserDetails userDetails =
+                org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
+                        .username(user.getUsername())
+                        .password(password)
+                        .roles("USER")
+                        .build();
+        inMemoryUserDetailsManager.updateUser(userDetails);
+        user.setContact(contact);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
         user.setPassword(password);
         dao.saveOrUpdate(user);
         return "redirect:/user/{id}";
@@ -84,16 +93,16 @@ public class UserController {
 
     @PostMapping(value = "/user/create")
     String createuser(@RequestParam("username") String username,
-                      @RequestParam("firstName") String firstName,
-                      @RequestParam("lastName") String lastName,
-                      @RequestParam("email") String email,
+                      @RequestParam("firstname") String firstname,
+                      @RequestParam("lastname") String lastname,
+                      @RequestParam("contact") String contact,
                       @RequestParam("password") String password) {
         GenericDao dao = new GenericDao(User.class);
         User user = new User();
         user.setUsername(username);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setEmail(email);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
+        user.setContact(contact);
         user.setPassword(password);
         UserDetails userDetails =
                 org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()

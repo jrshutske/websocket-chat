@@ -1,16 +1,14 @@
 package com.jack.entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
-
-
 @Entity
-@Table(name = "rooms")
-public class Room {
+@Table(name = "characters",
+       uniqueConstraints = {@UniqueConstraint(columnNames = {"realmname", "charactername","id"})})
+public class Character {
 
     @Id
     @Getter
@@ -21,8 +19,13 @@ public class Room {
 
     @Getter
     @Setter
-    @Column(name = "roomName")
-    private String roomName;
+    @Column(name = "charactername")
+    private String charactername;
+
+    @Getter
+    @Setter
+    @Column(name = "realmname")
+    private String realmname;
 
     @Getter
     @Setter
@@ -30,5 +33,5 @@ public class Room {
     @JoinColumn(name="creator", referencedColumnName="id", nullable=false)
     private User creator;
 
-    public Room() {}
+    public Character() {}
 }

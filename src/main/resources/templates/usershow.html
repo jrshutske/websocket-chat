@@ -1,28 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
-<div class="container main">
-<h1>User</h1>
-<table class="table table-sm table-dark" >
-    <thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">username</th>
-        <th scope="col">email</th>
-        <th scope="col">firstname</th>
-        <th scope="col">lastname</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${user.id}" />
-        <td th:text="${user.username}" />
-        <td th:text="${user.email}" />
-        <td th:text="${user.firstName}" />
-        <td th:text="${user.lastName}" />
-    </tr>
-    </tbody>
-</table>
-</div>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1 th:text="${user.username}"/>
+            <h6 class="text-muted" th:text="'Contact: '+${user.contact}"/>
+            <h6 class="text-muted" th:text="'Name: '+${user.firstname}+' '+${user.lastname}"/>
+            <div th:if="${#httpServletRequest.remoteUser == user.username}">
+                <button type="button"
+                        class="btn btn-lg btn-primary"
+                        th:onclick="'javascript:rowClicked(\'/user/'+${user.id}+'/edit\');'">
+                    Edit
+                </button>
+            </div>
+            <br><br>
+            <div class="table-responsive">
+            <table class="table table-lg table-dark  col-md-12 rounded text-center" >
+                <thead>
+                <tr>
+                    <th class="h5" scope="col">characters</th>
+                    <th class="h5" scope="col">realm</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="listing"
+                    th:onclick="'javascript:rowClicked(\'/character/' + ${character.id} + '\');'"
+                    th:each="character: ${user.getCharacters()}">
+                    <td class="h3" th:text="${character.charactername}"/>
+                    <td class="h3" th:text="${character.realmname}" />
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+    </div>
+
 </body>
 </html>

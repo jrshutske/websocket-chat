@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container main">
+<table class="table table-sm table-dark" >
+    <thead>
+    <tr>
+        <th scope="col">charactername</th>
+        <th scope="col">user</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${characterModel.name}" />
+        <td th:text="${characterModel.realm}" />
+        <td th:text="${characterModel.battlegroup}" />
+        <td th:text="${characterModel.classnumber}" />
+        <td>
+            <a th:href="@{/user/{id} (id=${character.creator.getId()})}"
+               th:text="${character.creator.getUsername()}"/>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
+<body>
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>New Character</h1>
+        <div class="text-center alert alert-warning"  th:if="${param.error}">
+            That character is already linked to your account.
+        </div>
+        <form class="form-group text-center" th:action="@{/character/create}" th:object="${character}" method="post">
+            <input class="form-control-lg col-md-4 text-center" placeholder="name" type="text" th:field="*{charactername}"/>
+            <br><br>
+            <input class="form-control-lg col-md-4 text-center" placeholder="realm" type="text" th:field="*{realmname}"/>
+            <br><br>
+            <input type="hidden" name="creatorname" th:value="${#httpServletRequest.remoteUser}">
+            <button type="submit" class="btn btn-lg btn-primary">Link</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

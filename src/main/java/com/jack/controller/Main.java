@@ -16,10 +16,24 @@
 
 package com.jack.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.context.annotation.*;
+import org.springframework.web.client.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.http.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import javax.servlet.http.HttpServletRequest;
+
+
+import java.io.IOException;
 
 @Controller
 @SpringBootApplication
@@ -28,13 +42,15 @@ public class Main {
   public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
   }
+  private final Logger logger = LogManager.getLogger(this.getClass());
+
 
   @GetMapping("/")
-  String index() {
-    return "index";
-  }
+  String index() { return "index"; }
   @GetMapping("/login")
   String login() {
     return "login";
   }
+
 }
+

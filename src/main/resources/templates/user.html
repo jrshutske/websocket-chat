@@ -2,27 +2,27 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
 <div class="container bg-secondary">
-<h1 class="text-light">Users</h1>
-<table class="table table-lg table-striped text-light" >
-    <thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">username</th>
-        <th scope="col">email</th>
-        <th scope="col">firstname</th>
-        <th scope="col">lastname</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user: ${users}">
-        <td th:text="${user.id}" />
-        <td th:text="${user.username}" />
-        <td th:text="${user.email}" />
-        <td th:text="${user.firstName}" />
-        <td th:text="${user.lastName}" />
-    </tr>
-    </tbody>
-</table>
+<h1 class="text-light">All Users</h1>
+    <div class="table-responsive">
+        <table class="table table-lg table-striped text-light" id="mytable">
+            <thead>
+            <tr>
+                <th class="h5" scope="col">username</th>
+                <th class="h5" scope="col">firstname</th>
+                <th class="h5" scope="col">lastname</th>
+                <th class="h5" scope="col">contact</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="listing" th:onclick="'javascript:rowClicked(\'/user/' + ${user.id} + '\');'" th:each="user: ${users}">
+                <td class="h3" th:text="${user.username}" />
+                <td class="h3" th:text="${user.firstname}" />
+                <td class="h3" th:text="${user.lastname}" />
+                <td class="h3" th:text="${user.contact}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>
