@@ -15,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import com.jack.entity.User;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 
@@ -23,6 +24,11 @@ import java.util.*;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
+
+    @Bean
+    public RestTemplate rest() {
+        return new RestTemplate();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

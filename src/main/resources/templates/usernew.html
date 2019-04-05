@@ -5,22 +5,18 @@
     <div class="jumbotron text-center">
         <h1>Registration</h1>
         <div class="alert alert-warning" th:if="${param.error}">That username is taken!</div>
-        <form class="text-center text-dark" th:action="@{/user/create}" th:object="${user}" method="post">
-            <div class="form-group col-sm-12 col-md-8 col-lg-6">
-            <label for="username">username:</label>
-            <input class="form-control" id="username" type="text" th:field="*{username}">
-            <label for="contact">contact:</label>
-            <input class="form-control" id="contact" type="text" th:field="*{contact}">
-            <label for="firstname">firstname:</label>
-            <input class="form-control" id="firstname" type="text" th:field="*{firstname}">
-            <label for="lastname">lastname:</label>
-            <input class="form-control" id="lastname" type="text" th:field="*{lastname}">
-            <label for="password">password:</label>
-            <input class="form-control" id="password" type="password" th:field="*{password}">
-            <br>
-            <input class="btn btn-lg btn-info mb-2" type="submit" value="submit" />
-            </div>
-            <br>
+        <form class="form-group text-center" th:action="@{/user/create}" th:object="${user}" method="post">
+            <input class="form-control-lg col-md-4 text-center" placeholder="username" type="text" th:field="*{username}"/>
+            <br><br>
+            <input class="form-control-lg col-md-4 text-center" placeholder="contact" type="text" th:field="*{contact}"/>
+            <br><br>
+            <input class="form-control-lg col-md-4 text-center" placeholder="firstname" type="text" th:field="*{firstname}"/>
+            <br><br>
+            <input class="form-control-lg col-md-4 text-center" placeholder="lastname" type="text" th:field="*{lastname}"/>
+            <br><br>
+            <input class="form-control-lg col-md-4 text-center" placeholder="password" type="password" name="password"/>
+            <br><br>
+            <button type="submit" class="btn btn-lg btn-primary">Submit</button>
         </form>
     </div>
 </div>

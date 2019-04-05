@@ -1,7 +1,12 @@
 package com.jack.controller;
 
+import com.jack.entity.Character;
+import com.jack.entity.CharacterModel;
 import com.jack.entity.User;
 import com.jack.persistence.GenericDao;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -26,12 +32,15 @@ import java.util.*;
 @EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 public class UserController {
 
+
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
 
     @Autowired
     public UserController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
         this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
     }
+
     private final Logger logger = LogManager.getLogger(this.getClass());
 
 
@@ -43,20 +52,21 @@ public class UserController {
         return "user";
     }
 
-    @GetMapping("/user/{id}")
-    String getuserbyid(@PathVariable int id, Model model) {
-        GenericDao dao = new GenericDao(User.class);
-        User user = (User)dao.getById(id);
-        logger.info("Getting characters: " + user.getCharacters());
-        model.addAttribute("user", user);
-
-        return "usershow";
-    }
+//    @GetMapping("/user/{id}")
+//    String getuserbyid(@PathVariable int id, Model model) {
+//        GenericDao dao = new GenericDao(User.class);
+//        User user = (User)dao.getById(id);
+//        logger.info("Getting characters: " + user.getCharacters());
+//        List<CharacterModel> characterModels = getCharacterModels(user.getCharacters());
+//        model.addAttribute("user", user);
+//        model.addAttribute("characterModels", characterModels);
+//        return "usershow";
+//    }
 
     @GetMapping("/user/{id}/edit")
     String edituser(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
-        User user = (User)dao.getById(id);
+        User user = (User) dao.getById(id);
         model.addAttribute("user", user);
         return "useredit";
     }
@@ -68,7 +78,7 @@ public class UserController {
                       @RequestParam("lastname") String lastname,
                       @RequestParam("password") String password) {
         GenericDao dao = new GenericDao(User.class);
-        User user = (User)dao.getById(id);
+        User user = (User) dao.getById(id);
         UserDetails userDetails =
                 org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
                         .username(user.getUsername())
@@ -110,14 +120,14 @@ public class UserController {
                         .password(password)
                         .roles("USER")
                         .build();
-        if(!inMemoryUserDetailsManager.userExists(username)) {
+        if (!inMemoryUserDetailsManager.userExists(username)) {
             int id = dao.insert(user);
             inMemoryUserDetailsManager.createUser(userDetails);
             logger.info("the user that is created: " + username);
             return "redirect:/user/" + id;
-        }
-        else {
+        } else {
             return "redirect:/user/new?error";
         }
     }
+
 }

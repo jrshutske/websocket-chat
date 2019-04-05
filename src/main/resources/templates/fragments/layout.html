@@ -22,19 +22,9 @@
             color: #d9ccee;
             max-width: 75%;
             margin: 1em auto 2em; }
-        .navbar + .jumbotron {
-            margin-top: -20px; }
-        .jumbotron .lang-logo {
-            display: block;
-            background: #B01302;
-            border-radius: 50%;
-            overflow: hidden;
-            width: 100px;
-            height: 100px;
-            margin: auto;
-            border: 2px solid white; }
-        .jumbotron .lang-logo img {
-            max-width: 100%; }
+        /*.navbar + .jumbotron {*/
+            /*margin-top: -20px; }*/
+
         button > a, .alert-link {
             text-decoration: none !important;
             color: black !important;
@@ -42,9 +32,6 @@
         body {
             background-color: #191919;
             color: white;
-        }
-        .navbar {
-            background-color: #4f3300;
         }
         input {
             color: black;
@@ -69,11 +56,20 @@
         i {
             text-shadow: 0 0px 3px #000000;
         }
+        .modal-content {
+            background-color: #442800 !important;
+        }
+        .border-10{
+            border: 10px solid #000 !important;
+        }
+        .fa-sign-out-alt {
+            border: none;
+        }
     </style>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg fixed-top" role="navigation">
+<nav class="navbar navbar-expand bg-dark fixed-top" role="navigation">
     <div class="container">
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
@@ -109,8 +105,9 @@
 <br><br><br><br>
 
 <div th:replace="${template}"/>
+<br><br>
 
-<div class="container bg-dark">
+<div class="container-fluid bg-dark">
     <br>
     <div class="alert alert-info text-center" role="alert">
         To deploy your own copy, and learn the fundamentals of spring and the blizzard api, head over to <a href="https://github.com/jrshutske/wow-api" class="alert-link">wow-api</a>.

@@ -7,6 +7,10 @@ public class CharacterModel {
 
     @Getter
     @Setter
+    private Integer id;
+
+    @Getter
+    @Setter
     private String name;
 
     @Getter
@@ -23,7 +27,19 @@ public class CharacterModel {
 
     @Getter
     @Setter
-    private Integer race;
+    private String classname;
+
+    @Getter
+    @Setter
+    private Integer racenumber;
+
+    @Getter
+    @Setter
+    private String racename;
+
+    @Getter
+    @Setter
+    private String faction;
 
     @Getter
     @Setter
@@ -39,5 +55,5 @@ public class CharacterModel {
 
     @Getter
     @Setter
-    private Integer totalhorablekills;
+    private Integer totalhonorablekills;
 }

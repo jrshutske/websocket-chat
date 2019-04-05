@@ -2,11 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
 <div class="container main">
-<table class="table table-sm table-dark" >
+    <div class="text-left">
+        <form th:action="@{/user/{id} (id=${character.creator.getId()})}" method="get">
+            <button class="btn btn-warning btn-sm"
+                    th:text="'Back to '+${character.creator.getUsername()}">
+
+            </button>
+        </form>
+        <br><br>
+        <strong><p th:text="${characterModel.name}"/></strong>
+        <p th:text="${characterModel.realm}"/>
+    </div>
+    <img th:src="${characterModel.thumbnail}" width="100%" height="auto" class="border-10 rounded">
+<table class="table table-responsive table-sm table-dark" >
     <thead>
     <tr>
-        <th scope="col">charactername</th>
-        <th scope="col">user</th>
+        <th scope="col">Name</th>
+        <th scope="col">Realm</th>
+        <th scope="col">Battle Group</th>
+        <th scope="col">Faction</th>
+        <th scope="col">Race</th>
+        <th scope="col">Class</th>
+        <th scope="col">Total Honorable Kills</th>
+        <th scope="col">Achievement Points</th>
     </tr>
     </thead>
     <tbody>
@@ -14,11 +32,11 @@
         <td th:text="${characterModel.name}" />
         <td th:text="${characterModel.realm}" />
         <td th:text="${characterModel.battlegroup}" />
-        <td th:text="${characterModel.classnumber}" />
-        <td>
-            <a th:href="@{/user/{id} (id=${character.creator.getId()})}"
-               th:text="${character.creator.getUsername()}"/>
-        </td>
+        <td th:text="${characterModel.faction}" />
+        <td th:text="${characterModel.racename}" />
+        <td th:text="${characterModel.classname}" />
+        <td th:text="${characterModel.totalhonorablekills}" />
+        <td th:text="${characterModel.achievementpoints}" />
     </tr>
     </tbody>
 </table>
