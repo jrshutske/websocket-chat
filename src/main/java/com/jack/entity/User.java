@@ -3,6 +3,7 @@ package com.jack.entity;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 import java.util.*;
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class User {
 
   @Getter
   @Setter
+  @NaturalId
   @Column(name = "username")
   private String username;
 

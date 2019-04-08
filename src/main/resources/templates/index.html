@@ -15,8 +15,16 @@
         <button type="button" class="btn btn-lg btn-warning" onclick="location.href='/user/new'">Register</button>
       </div>
       <div th:if="${#httpServletRequest.remoteUser}">
-        <a type="button" class="btn btn-lg btn-info" href="#"> Find a friend</a>
         <a type="button" class="btn btn-lg btn-primary" href="/character/new"> Link a character</a>
+        <br><br>
+        <span>OR</span>
+        <br><br>
+        <form class="form text-center" action="/search" method="get">
+          <input type="text" class="form-control-lg col-md-3 text-center" name="username" placeholder="username">
+          <br><br>
+          <button type="submit" class="btn btn-lg btn-info">Find a friend</button>
+        </form>
+
       </div>
   </div>
 </div>

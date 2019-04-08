@@ -71,6 +71,19 @@ public class UserController {
         model.addAttribute("characterModels", characterModels);
         return "usershow";
     }
+
+    @GetMapping("/search")
+    String getuserbyusername(@RequestParam("username") String username, Model model) {
+        GenericDao dao = new GenericDao(User.class);
+        User user = (User)dao.getByUsername(username);
+        logger.info("Getting characters: " + user.getCharacters());
+        CharacterModelController characterModelController = new CharacterModelController();
+        List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
+        model.addAttribute("user", user);
+        model.addAttribute("characterModels", characterModels);
+        return "usershow";
+    }
+
     @GetMapping(value = "/api/user/{id}")
     public ResponseEntity<?> apiuserid(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);

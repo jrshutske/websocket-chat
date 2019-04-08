@@ -65,9 +65,10 @@
         .fa-sign-out-alt {
             border: none;
         }
-        modal-body {
+        * {
             overflow-x: hidden;
         }
+
     </style>
 </head>
 
@@ -77,18 +78,18 @@
         <div class="collapse navbar-collapse" id="exCollapsingNavbar">
             <ul class="nav navbar-nav">
                 <li class="nav-item">
-                    <a href="/" class="nav-link">
+                    <a href="/" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Home">
                         <i class="fas fa-home fa-3x text-warning"></i>
                         </i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/user" class="nav-link">
+                    <a href="/user" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Users">
                         <i class="fas fa-users fa-3x text-warning"></i>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/character" class="nav-link">
+                    <a href="/character" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Characters">
                         <i class="fas fa-khanda fa-3x text-warning"></i>
                     </a>
                 </li>

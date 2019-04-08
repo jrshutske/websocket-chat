@@ -1,6 +1,7 @@
 package com.jack.persistence;
 
 import com.jack.entity.Character;
+import com.jack.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
@@ -28,6 +29,15 @@ public class GenericDao<T> {
     public <T>T getById(int id) {
         Session session = getSession();
         T entity = (T)session.get(type, id);
+        session.close();
+        return entity;
+    }
+
+    public User getByUsername(String username) {
+        Session session = getSession();
+        User entity = session.byNaturalId(User.class)
+                .using("username",username)
+                .load();
         session.close();
         return entity;
     }
