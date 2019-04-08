@@ -1,1 +1,1 @@
-web: java -jar target/websocket-chat-1.0.jar
+web: java -jar target/wow-api-1.0.jar
