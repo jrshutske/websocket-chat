@@ -1,8 +1,8 @@
-# websocket-chat
+# wow-api
 
-People want to have a place to talk to their friends. With this application people are able to create an account, a private room and get chatting.
+People want to have a place to find World of Warcraft arena teams. With this application people are able to create the team composition best suited for them and their friends.
 
-This application is using a PostgreSQL database hosted on Heroku and will be implementing the [Javamail](https://www.oracle.com/technetwork/java/javamail/index.html) API.
+This application is using a PostgreSQL database hosted on Heroku and will be implementing the [Blizzard](https://develop.battle.net/) API.
 
 
 ## Running Locally

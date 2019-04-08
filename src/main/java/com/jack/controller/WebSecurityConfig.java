@@ -25,10 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-    @Bean
-    public RestTemplate rest() {
-        return new RestTemplate();
-    }
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
