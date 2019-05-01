@@ -1,16 +1,7 @@
 package com.jack.controller;
-import com.jack.controller.CharacterModelController;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.jack.entity.Character;
 import com.jack.entity.CharacterModel;
 import com.jack.entity.User;
 import com.jack.persistence.GenericDao;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -27,12 +18,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 import java.util.*;
 
 @Controller
@@ -76,12 +61,16 @@ public class UserController {
     String getuserbyusername(@RequestParam("username") String username, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getByUsername(username);
-        logger.info("Getting characters: " + user.getCharacters());
-        CharacterModelController characterModelController = new CharacterModelController();
-        List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
-        model.addAttribute("user", user);
-        model.addAttribute("characterModels", characterModels);
-        return "usershow";
+        if (user != null) {
+            logger.info("Getting characters: " + user.getCharacters());
+            CharacterModelController characterModelController = new CharacterModelController();
+            List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
+            model.addAttribute("user", user);
+            model.addAttribute("characterModels", characterModels);
+            return "usershow";
+        } else {
+            return "redirect:/?notice=searchfailure";
+        }
     }
 
     @GetMapping(value = "/api/user/{id}")
@@ -142,7 +131,7 @@ public class UserController {
                       @RequestParam("lastname") String lastname,
                       @RequestParam("contact") String contact,
                       @RequestParam("password") String password) {
-        GenericDao dao = new GenericDao(User.class);
+        GenericDao userDao = new GenericDao(User.class);
         User user = new User();
         user.setUsername(username);
         user.setFirstname(firstname);
@@ -155,13 +144,16 @@ public class UserController {
                         .password(password)
                         .roles("USER")
                         .build();
+        if (username == "") {
+            return "redirect:/user/new?notice=failure";
+        }
         if (!inMemoryUserDetailsManager.userExists(username)) {
-            int id = dao.insert(user);
+            int id = userDao.insert(user);
             inMemoryUserDetailsManager.createUser(userDetails);
             logger.info("the user that is created: " + username);
-            return "redirect:/user/" + id;
+            return "redirect:/user/?notice=success" + id;
         } else {
-            return "redirect:/user/new?error";
+            return "redirect:/user/new?notice=failure";
         }
     }
 

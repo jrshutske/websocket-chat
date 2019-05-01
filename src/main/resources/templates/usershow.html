@@ -2,6 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
     <div class="container">
+        <div th:if="${param.notice}">
+            <div class="text-center alert alert-success"  th:if="${param.notice[0] == 'success'}">
+                You have successfully removed you character.
+            </div>
+            <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'failure'}">
+                There was an error removing that character.
+            </div>
+        </div>
         <div class="jumbotron text-center">
             <h1 th:text="${user.username}"/>
             <h6 class="text-light" th:text="'Contact: '+${user.contact}"/>
@@ -74,6 +82,13 @@
 
                                 </div>
                                 <div class="modal-footer">
+                                    <div th:if="${#httpServletRequest.remoteUser == user.username}">
+                                        <button type="button"
+                                                class="btn btn-sm btn-danger"
+                                                th:onclick="'javascript:rowClicked(\'/character/'+${characterModel.id}+'/delete\');'">
+                                            Remove
+                                        </button>
+                                    </div>
                                     <button type="button"
                                             class="btn btn-sm btn-warning"
                                             th:onclick="'javascript:rowClicked(\'/character/'+${characterModel.id}+'\');'">

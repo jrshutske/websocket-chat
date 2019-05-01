@@ -12,7 +12,7 @@ public class CleanDatabase {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         session.createNativeQuery("TRUNCATE users CASCADE").executeUpdate();
-        session.createNativeQuery("TRUNCATE rooms CASCADE").executeUpdate();
+        session.createNativeQuery("TRUNCATE characters CASCADE").executeUpdate();
         transaction.commit();
         session.close();
     }

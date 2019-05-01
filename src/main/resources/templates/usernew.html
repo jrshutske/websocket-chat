@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'db')}">
 <body>
 <div class="container">
+    <div th:if="${param.notice}">
+        <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'failure'}">
+            That user already exists.
+        </div>
+    </div>
     <div class="jumbotron text-center">
         <h1>Registration</h1>
-        <div class="alert alert-warning" th:if="${param.error}">That username is taken!</div>
         <form class="form-group text-center" th:action="@{/user/create}" th:object="${user}" method="post">
             <input class="form-control-lg col-md-4 text-center" placeholder="username" type="text" th:field="*{username}"/>
             <br><br>

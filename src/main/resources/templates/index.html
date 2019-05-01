@@ -2,6 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'index')}">
 <body>
 <div class="container">
+  <div th:if="${param.notice}">
+    <div class="text-center alert alert-success"  th:if="${param.notice[0] == 'success'}">
+      You have successfully removed you character.
+    </div>
+    <div class="text-center alert alert-success"  th:if="${param.notice[0] == 'searchfailure'}">
+      That user cannot be found.
+    </div>
+  </div>
   <div class="jumbotron text-center">
     <div th:if="${#httpServletRequest.remoteUser}">
     <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
@@ -27,6 +35,47 @@
 
       </div>
   </div>
+</div>
+<div class="container-fluid bg-dark">
+  <br>
+  <div class="alert alert-info text-center" role="alert">
+    To deploy your own copy, and learn the fundamentals of spring and the blizzard api, head over to <a href="https://github.com/jrshutske/wow-api" class="alert-link">wow-api</a>.
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-info-sign"></span> How this app works</h3>
+      <ul>
+        <li>This app was deployed to Heroku, either using Git or by using <a href="https://github.com/heroku/java-getting-started">Heroku Button</a> on the repository.</li>
+        <li>When Heroku received the source code, it fetched all the dependencies in the <a href="https://github.com/heroku/java-getting-started/blob/master/pom.xml">pom.xml</a>, creating a slug.</li>
+        <li>The platform then spins up a dyno, a lightweight container that provides an isolated environment in which the slug can be mounted and executed.</li>
+        <li>You can scale your app, manage it, and deploy over <a href="https://addons.heroku.com/">150 add-on services</a>, from the Dashboard or CLI.</li>
+      </ul>
+      <div class="alert alert-primary" role="alert">heroku ps:scale web=2</div>
+    </div>
+    <div class="col-md-6">
+      <h3><span class="glyphicon glyphicon-link"></span>Next Steps</h3>
+      <p>If you are following the <a href="https://devcenter.heroku.com/articles/getting-started-with-java">Getting Started</a> guide, then please head back to the tutorial and follow the next steps!</p>
+      <p>If you deployed this app by deploying the Heroku Button, then in a command line shell, run:</p>
+      <div class="alert alert-primary" role="alert">git clone https://github.com/jrshutske/wow-api.git</div>
+      <div class="alert alert-primary" role="alert">cd wow-api</div>
+      <div class="alert alert-primary" role="alert">heroku git:remote -a &lt;your-app-name></div>
+    </div>
+  </div> <!-- row -->
+  <div class="text-center">
+    <a href="#" class="m-3"><i class="fab fa-github-square fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fab fa-gitlab fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fab fa-spotify fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fab fa-discord fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fas fa-user-astronaut fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fab fa-qq fa-4x text-info"></i></a>
+    <a href="#" class="m-3"><i class="fab fa-weibo fa-4x text-info"></i></a>
+  </div>
+  <br>
+  <div class="alert alert-info text-center" role="alert">
+    Please do check out my github account for other cool projects and enjoy your time here.
+  </div>
+  <br>
 </div>
 </body>
 </html>

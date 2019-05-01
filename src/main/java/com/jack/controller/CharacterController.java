@@ -6,18 +6,14 @@ import com.jack.entity.User;
 import com.jack.persistence.GenericDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,6 +43,24 @@ public class CharacterController {
         return "charactershow";
     }
 
+    //Consuming a service by GET method
+    @GetMapping("/character/{id}/delete")
+    String deletecharacterbyid(@PathVariable int id, Model model) throws IOException {
+        GenericDao characterDao = new GenericDao(Character.class);
+        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Character character = (Character)characterDao.getById(id);
+        User creator = character.getCreator();
+        int creatorId = creator.getId();
+        logger.info("currentUSER: " + currentUserName);
+        logger.info("attempting to delete character of: " + creator.getUsername());
+        if (creator.getUsername().equals(currentUserName)) {
+            characterDao.delete(character);
+            return "redirect:/user/"+creatorId+"/?notice=success";
+        }
+        return "redirect:/user/"+creatorId+"/?notice=failure";
+
+    }
+
     @PostMapping(value = "/character/create")
     String createcharacter(@RequestParam("charactername") String charactername,
                            @RequestParam("creatorname") String creatorname,
@@ -69,16 +83,18 @@ public class CharacterController {
             character.setRealmname(realmname);
             try{
                 CharacterModelController characterModelController = new CharacterModelController();
-                characterModelController.getCharacterModel(character);
+                CharacterModel characterModel = characterModelController.getCharacterModel(character);
+                character.setCharactername(characterModel.getName());
+                character.setRealmname(characterModel.getRealm());
             } catch(Exception e){
                 logger.error("error creating character: " + e);
-                return "redirect:/character/new?error=404";
+                return "redirect:/character/new?notice=404";
             }
             int id = characterDao.insert(character);
             return "redirect:/character/" + id;
         } catch(Exception e){
             logger.error("error creating character: " + e);
-            return "redirect:/character/new?error=exists";
+            return "redirect:/character/new?notice=exists";
         }
     }
 

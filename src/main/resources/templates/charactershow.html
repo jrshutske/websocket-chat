@@ -6,40 +6,39 @@
         <form th:action="@{/user/{id} (id=${character.creator.getId()})}" method="get">
             <button class="btn btn-warning btn-sm"
                     th:text="'Back to '+${character.creator.getUsername()}">
-
             </button>
         </form>
         <br><br>
         <strong><p th:text="${characterModel.name}"/></strong>
         <p th:text="${characterModel.realm}"/>
     </div>
+    <table class="table table-lg table-dark" >
+        <thead>
+        <tr>
+            <th class="border" scope="col">Name</th>
+            <th class="border" scope="col">Realm</th>
+            <th class="border" scope="col">Battle Group</th>
+            <th class="border" scope="col">Faction</th>
+            <th class="border" scope="col">Race</th>
+            <th class="border" scope="col">Class</th>
+            <th class="border" scope="col">Total Honorable Kills</th>
+            <th class="border" scope="col">Achievement Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="border" th:text="${characterModel.name}" />
+            <td class="border" th:text="${characterModel.realm}" />
+            <td class="border" th:text="${characterModel.battlegroup}" />
+            <td class="border" th:text="${characterModel.faction}" />
+            <td class="border" th:text="${characterModel.racename}" />
+            <td class="border" th:text="${characterModel.classname}" />
+            <td class="border" th:text="${characterModel.totalhonorablekills}" />
+            <td class="border" th:text="${characterModel.achievementpoints}" />
+        </tr>
+        </tbody>
+    </table>
     <img th:src="${characterModel.thumbnail}" width="100%" height="auto" class="border-10 rounded">
-<table class="table table-responsive table-sm table-dark" >
-    <thead>
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Realm</th>
-        <th scope="col">Battle Group</th>
-        <th scope="col">Faction</th>
-        <th scope="col">Race</th>
-        <th scope="col">Class</th>
-        <th scope="col">Total Honorable Kills</th>
-        <th scope="col">Achievement Points</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${characterModel.name}" />
-        <td th:text="${characterModel.realm}" />
-        <td th:text="${characterModel.battlegroup}" />
-        <td th:text="${characterModel.faction}" />
-        <td th:text="${characterModel.racename}" />
-        <td th:text="${characterModel.classname}" />
-        <td th:text="${characterModel.totalhonorablekills}" />
-        <td th:text="${characterModel.achievementpoints}" />
-    </tr>
-    </tbody>
-</table>
 </div>
 </body>
 </html>
