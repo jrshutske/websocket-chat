@@ -12,7 +12,8 @@
         <strong><p th:text="${characterModel.name}"/></strong>
         <p th:text="${characterModel.realm}"/>
     </div>
-    <table class="table table-lg table-dark" >
+    <div class="table-responsive">
+    <table class="table table-lg text-light" >
         <thead>
         <tr>
             <th class="border" scope="col">Name</th>
@@ -38,6 +39,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
     <img th:src="${characterModel.thumbnail}" width="100%" height="auto" class="border-10 rounded">
 </div>
 </body>

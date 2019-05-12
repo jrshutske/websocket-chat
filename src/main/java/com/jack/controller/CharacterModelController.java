@@ -34,9 +34,9 @@ public class CharacterModelController {
     public String getAccessToken() {
         String tokenJson = rest().getForObject(serviceURL(), String.class);
         JSONObject tokenobj = new JSONObject(tokenJson);
-        String access_token = tokenobj.getString("access_token");
+        String accessToken = tokenobj.getString("access_token");
         logger.info("this is the access token:" + tokenobj.getString("access_token"));
-        return access_token;
+        return accessToken;
     }
 
     public String getClassName(Integer id) {
@@ -97,9 +97,9 @@ public class CharacterModelController {
         String fixedthumbnail = thumnail.replaceAll("avatar","main");
         fixedthumbnail = "http://render-us.worldofwarcraft.com/character/" + fixedthumbnail;
         characterModel.setThumbnail(fixedthumbnail);
-        JSONObject rfobject = getRaceFactionName(characterobj.getInt("race"));
-        characterModel.setRacename(rfobject.getString("name"));
-        String str = rfobject.getString("side");
+        JSONObject raceFactionObject = getRaceFactionName(characterobj.getInt("race"));
+        characterModel.setRacename(raceFactionObject.getString("name"));
+        String str = raceFactionObject.getString("side");
         characterModel.setFaction(str.substring(0, 1).toUpperCase() + str.substring(1));
         logger.info("this is character from the set:" + characterModel);
         return characterModel;

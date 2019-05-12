@@ -19,13 +19,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
-
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/", "/user/new", "/user/create").permitAll()
+            .antMatchers("/", "/user/new", "/user/create", "/login/?notice=success").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()

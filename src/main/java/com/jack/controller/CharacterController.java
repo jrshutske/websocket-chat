@@ -24,21 +24,15 @@ public class CharacterController {
     private final Logger logger = LogManager.getLogger(this.getClass());
 
     @GetMapping("/character")
-    String characters(Model model) {
-        GenericDao characterDao = new GenericDao(Character.class);
-        List<Character> characters = characterDao.getAll();
-        model.addAttribute("characters", characters);
+    String getAllCharactersPath(Model model) {
+        model.addAttribute("characters", getAllCharacters());
         return "character";
     }
 
-    //Consuming a service by GET method
     @GetMapping("/character/{id}")
-    String getcharacterbyid(@PathVariable int id, Model model) throws IOException {
-        GenericDao characterDao = new GenericDao(Character.class);
-        Character character = (Character)characterDao.getById(id);
-        CharacterModelController characterModelController = new CharacterModelController();
-        CharacterModel characterModel = characterModelController.getCharacterModel(character);
-        model.addAttribute("characterModel", characterModel);
+    String getCharacterByIdPath(@PathVariable int id, Model model) throws IOException {
+        Character character = getCharacterById(id);
+        model.addAttribute("characterModel", getCharacterModel(character));
         model.addAttribute("character", character);
         return "charactershow";
     }
@@ -47,8 +41,8 @@ public class CharacterController {
     @GetMapping("/character/{id}/delete")
     String deletecharacterbyid(@PathVariable int id, Model model) throws IOException {
         GenericDao characterDao = new GenericDao(Character.class);
-        final String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-        Character character = (Character)characterDao.getById(id);
+        String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Character character = getCharacterById(id);
         User creator = character.getCreator();
         int creatorId = creator.getId();
         logger.info("currentUSER: " + currentUserName);
@@ -58,7 +52,6 @@ public class CharacterController {
             return "redirect:/user/"+creatorId+"/?notice=success";
         }
         return "redirect:/user/"+creatorId+"/?notice=failure";
-
     }
 
     @PostMapping(value = "/character/create")
@@ -103,5 +96,23 @@ public class CharacterController {
         Character character = new Character();
         model.addAttribute("character", character);
         return "characternew";
+    }
+
+    public List<Character> getAllCharacters() {
+        GenericDao characterDao = new GenericDao(Character.class);
+        List<Character> characters = characterDao.getAll();
+        return characters;
+    }
+
+    public Character getCharacterById(int id) {
+        GenericDao characterDao = new GenericDao(Character.class);
+        Character character = (Character)characterDao.getById(id);
+        return character;
+    }
+
+    public CharacterModel getCharacterModel(Character character) {
+        CharacterModelController characterModelController = new CharacterModelController();
+        CharacterModel characterModel = characterModelController.getCharacterModel(character);
+        return characterModel;
     }
 }

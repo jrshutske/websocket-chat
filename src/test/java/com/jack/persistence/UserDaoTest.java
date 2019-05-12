@@ -3,9 +3,12 @@ package com.jack.persistence;
 import com.jack.entity.User;
 import com.jack.entity.Character;
 import com.jack.utility.CleanDatabase;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
+import com.jack.controller.CharacterModelController;
 
 import java.util.List;
 
@@ -13,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class UserDaoTest {
+
+    private final Logger logger = LogManager.getLogger(this.getClass());
 
     GenericDao userDao;
     GenericDao characterDao;

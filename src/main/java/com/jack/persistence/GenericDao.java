@@ -23,7 +23,6 @@ public class GenericDao<T> {
         this.type = type;
     }
 
-
     public <T>T getById(int id) {
         Session session = getSession();
         T entity = (T)session.get(type, id);

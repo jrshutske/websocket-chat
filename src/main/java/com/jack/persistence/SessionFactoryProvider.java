@@ -14,7 +14,6 @@ public class SessionFactoryProvider {
     private static SessionFactory sessionFactory;
 
     private SessionFactoryProvider() {
-
     }
 
     public static void createSessionFactory() {
@@ -24,11 +23,10 @@ public class SessionFactoryProvider {
             jdbcUrlSettings.put("hibernate.connection.url", System.getenv("JDBC_DATABASE_URL"));
         }
 
-        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().
-                configure("hibernate.cfg.xml").
-                applySettings(jdbcUrlSettings).
-                build();
-//        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder().configure().build();
+        StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
+                .configure("hibernate.cfg.xml")
+                .applySettings(jdbcUrlSettings)
+                .build();
         Metadata metaData = new MetadataSources(standardRegistry).getMetadataBuilder().build();
         sessionFactory = metaData.getSessionFactoryBuilder().build();
     }

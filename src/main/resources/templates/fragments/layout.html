@@ -7,6 +7,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
+        html,body {
+            height: 100%;
+        }
         input {
             font-size: 32px;
         }
@@ -84,6 +87,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a th:href="'/user/name/'+${#httpServletRequest.remoteUser}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Profile">
+                        <i class="fas fa-user fa-3x text-warning"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="/user" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Users">
                         <i class="fas fa-users fa-3x text-warning"></i>
                     </a>
@@ -109,8 +117,6 @@
 <br><br><br><br>
 
 <div th:replace="${template}"/>
-<br><br>
-
 <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
 <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>

@@ -22,12 +22,9 @@ import java.util.*;
 
 @Controller
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = SecurityAutoConfiguration.class)
 public class UserController {
 
-
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
-
 
     @Autowired
     public UserController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
@@ -35,7 +32,6 @@ public class UserController {
     }
 
     private final Logger logger = LogManager.getLogger(this.getClass());
-
 
     @GetMapping("/user")
     String users(Model model) {
@@ -57,16 +53,23 @@ public class UserController {
         return "usershow";
     }
 
+    @GetMapping("/user/name/{username}")
+    String showuserbyusername(@PathVariable String username, Model model) {
+        GenericDao dao = new GenericDao(User.class);
+        User user = dao.getByUsername(username);
+        logger.info("Getting characters: " + user.getCharacters());
+        model.addAttribute("user", user);
+        model.addAttribute("characterModels", getUsersCharacterModels(user));
+        return "usershow";
+    }
+
     @GetMapping("/search")
     String getuserbyusername(@RequestParam("username") String username, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getByUsername(username);
         if (user != null) {
-            logger.info("Getting characters: " + user.getCharacters());
-            CharacterModelController characterModelController = new CharacterModelController();
-            List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
             model.addAttribute("user", user);
-            model.addAttribute("characterModels", characterModels);
+            model.addAttribute("characterModels", getUsersCharacterModels(user));
             return "usershow";
         } else {
             return "redirect:/?notice=searchfailure";
@@ -77,8 +80,7 @@ public class UserController {
     public ResponseEntity<?> apiuserid(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
-        CharacterModelController characterModelController = new CharacterModelController();
-        List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
+        List<CharacterModel> characterModels = getUsersCharacterModels(user);
         if (characterModels.isEmpty()) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         } else {
@@ -144,17 +146,22 @@ public class UserController {
                         .password(password)
                         .roles("USER")
                         .build();
-        if (username == "") {
+        if (username.length() == 0) {
             return "redirect:/user/new?notice=failure";
         }
         if (!inMemoryUserDetailsManager.userExists(username)) {
             int id = userDao.insert(user);
             inMemoryUserDetailsManager.createUser(userDetails);
             logger.info("the user that is created: " + username);
-            return "redirect:/user/?notice=success" + id;
+            return "redirect:/login/?notice=success";
         } else {
             return "redirect:/user/new?notice=failure";
         }
     }
 
+    public List<CharacterModel> getUsersCharacterModels(User user) {
+        CharacterModelController characterModelController = new CharacterModelController();
+        List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());
+        return characterModels;
+    }
 }
