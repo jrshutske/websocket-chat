@@ -9,10 +9,16 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * The type Entity test.
+ */
 class EntityTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Create user.
+     */
     @Test
     void createUser() {
         Set<Character> characters = new HashSet();
@@ -43,6 +49,9 @@ class EntityTest {
         assertEquals(characters, user.getCharacters());
     }
 
+    /**
+     * Create character.
+     */
     @Test
     void createCharacter() {
         User user = new User();
@@ -65,6 +74,10 @@ class EntityTest {
         assertEquals(1, character.getId());
 
     }
+
+    /**
+     * Create character model.
+     */
     @Test
     void createCharacterModel() {
         CharacterModel characterModel = new CharacterModel();

@@ -8,6 +8,9 @@ import java.util.*;
 import javax.persistence.*;
 
 
+/**
+ * The type User.
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -51,5 +54,8 @@ public class User {
   @OneToMany(mappedBy="creator", fetch=FetchType.EAGER)
   private Set<Character> characters;
 
+  /**
+   * Instantiates a new User.
+   */
   public User() {}
 }

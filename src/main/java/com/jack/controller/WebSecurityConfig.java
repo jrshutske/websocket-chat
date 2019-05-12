@@ -14,6 +14,9 @@ import com.jack.entity.User;
 import java.util.*;
 
 
+/**
+ * The type Web security config.
+ */
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -34,6 +37,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .permitAll();
     }
 
+    /**
+     * In memory user details manager in memory user details manager.
+     *
+     * @return the in memory user details manager
+     */
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 

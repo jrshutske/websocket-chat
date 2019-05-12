@@ -83,7 +83,7 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <div th:if="${#httpServletRequest.remoteUser == user.username}">
+                                    <div th:if="${#httpServletRequest.remoteUser == user.username || #httpServletRequest.remoteUser == 'admin'}">
                                         <button type="button"
                                                 class="btn btn-sm btn-danger"
                                                 th:onclick="'javascript:rowClicked(\'/character/'+${characterModel.id}+'/delete\');'">

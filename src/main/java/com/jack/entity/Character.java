@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * The type Character.
+ */
 @Entity
 @Table(name = "characters",
        uniqueConstraints = {@UniqueConstraint(columnNames = {"realmname", "charactername","id"})})
@@ -33,5 +36,8 @@ public class Character {
     @JoinColumn(name="creator", referencedColumnName="id", nullable=false)
     private User creator;
 
+    /**
+     * Instantiates a new Character.
+     */
     public Character() {}
 }

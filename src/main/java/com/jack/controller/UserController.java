@@ -20,12 +20,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.*;
 
+/**
+ * The type User controller.
+ */
 @Controller
 @SpringBootApplication
 public class UserController {
 
     private final InMemoryUserDetailsManager inMemoryUserDetailsManager;
 
+    /**
+     * Instantiates a new User controller.
+     *
+     * @param inMemoryUserDetailsManager the in memory user details manager
+     */
     @Autowired
     public UserController(InMemoryUserDetailsManager inMemoryUserDetailsManager) {
         this.inMemoryUserDetailsManager = inMemoryUserDetailsManager;
@@ -33,16 +41,29 @@ public class UserController {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * All users path string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/user")
-    String users(Model model) {
+    String allUsersPath(Model model) {
         GenericDao dao = new GenericDao(User.class);
         List<User> users = dao.getAll();
         model.addAttribute("users", users);
         return "user";
     }
 
+    /**
+     * Gets user by id path.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the user by id path
+     */
     @GetMapping("/user/{id}")
-    String getuserbyid(@PathVariable int id, Model model) {
+    String getUserByIdPath(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
         logger.info("Getting characters: " + user.getCharacters());
@@ -53,8 +74,15 @@ public class UserController {
         return "usershow";
     }
 
+    /**
+     * Show user by username path string.
+     *
+     * @param username the username
+     * @param model    the model
+     * @return the string
+     */
     @GetMapping("/user/name/{username}")
-    String showuserbyusername(@PathVariable String username, Model model) {
+    String showUserByUsernamePath(@PathVariable String username, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = dao.getByUsername(username);
         logger.info("Getting characters: " + user.getCharacters());
@@ -63,8 +91,15 @@ public class UserController {
         return "usershow";
     }
 
+    /**
+     * Gets user by username path.
+     *
+     * @param username the username
+     * @param model    the model
+     * @return the user by username path
+     */
     @GetMapping("/search")
-    String getuserbyusername(@RequestParam("username") String username, Model model) {
+    String getUserByUsernamePath(@RequestParam("username") String username, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getByUsername(username);
         if (user != null) {
@@ -76,8 +111,15 @@ public class UserController {
         }
     }
 
+    /**
+     * Api user id path response entity.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the response entity
+     */
     @GetMapping(value = "/api/user/{id}")
-    public ResponseEntity<?> apiuserid(@PathVariable int id, Model model) {
+    public ResponseEntity<?> apiUserIdPath(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User)dao.getById(id);
         List<CharacterModel> characterModels = getUsersCharacterModels(user);
@@ -89,16 +131,33 @@ public class UserController {
     }
 
 
+    /**
+     * Edit user path string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/user/{id}/edit")
-    String edituser(@PathVariable int id, Model model) {
+    String editUserPath(@PathVariable int id, Model model) {
         GenericDao dao = new GenericDao(User.class);
         User user = (User) dao.getById(id);
         model.addAttribute("user", user);
         return "useredit";
     }
 
+    /**
+     * Update user path string.
+     *
+     * @param id        the id
+     * @param contact   the contact
+     * @param firstname the firstname
+     * @param lastname  the lastname
+     * @param password  the password
+     * @return the string
+     */
     @PostMapping(value = "/user/{id}/update")
-    String updateuser(@PathVariable int id,
+    String updateUserPath(@PathVariable int id,
                       @RequestParam("contact") String contact,
                       @RequestParam("firstname") String firstname,
                       @RequestParam("lastname") String lastname,
@@ -120,15 +179,31 @@ public class UserController {
         return "redirect:/user/{id}";
     }
 
+    /**
+     * New user path string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/user/new")
-    String newuser(Model model) {
+    String newUserPath(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "usernew";
     }
 
+    /**
+     * Create user path string.
+     *
+     * @param username  the username
+     * @param firstname the firstname
+     * @param lastname  the lastname
+     * @param contact   the contact
+     * @param password  the password
+     * @return the string
+     */
     @PostMapping(value = "/user/create")
-    String createuser(@RequestParam("username") String username,
+    String createUserPath(@RequestParam("username") String username,
                       @RequestParam("firstname") String firstname,
                       @RequestParam("lastname") String lastname,
                       @RequestParam("contact") String contact,
@@ -159,6 +234,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Gets users character models.
+     *
+     * @param user the user
+     * @return the users character models
+     */
     public List<CharacterModel> getUsersCharacterModels(User user) {
         CharacterModelController characterModelController = new CharacterModelController();
         List<CharacterModel> characterModels = characterModelController.getCharacterModels(user.getCharacters());

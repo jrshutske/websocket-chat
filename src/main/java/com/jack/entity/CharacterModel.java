@@ -3,6 +3,9 @@ package com.jack.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The type Character model.
+ */
 public class CharacterModel {
 
     @Getter

@@ -17,18 +17,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Character controller.
+ */
 @Controller
 @SpringBootApplication
 public class CharacterController {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Gets all characters path.
+     *
+     * @param model the model
+     * @return the all characters path
+     */
     @GetMapping("/character")
     String getAllCharactersPath(Model model) {
         model.addAttribute("characters", getAllCharacters());
         return "character";
     }
 
+    /**
+     * Gets character by id path.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the character by id path
+     * @throws IOException the io exception
+     */
     @GetMapping("/character/{id}")
     String getCharacterByIdPath(@PathVariable int id, Model model) throws IOException {
         Character character = getCharacterById(id);
@@ -37,9 +54,17 @@ public class CharacterController {
         return "charactershow";
     }
 
-    //Consuming a service by GET method
+    /**
+     * Delete character path string.
+     *
+     * @param id    the id
+     * @param model the model
+     * @return the string
+     * @throws IOException the io exception
+     */
+//Consuming a service by GET method
     @GetMapping("/character/{id}/delete")
-    String deletecharacterbyid(@PathVariable int id, Model model) throws IOException {
+    String deleteCharacterPath(@PathVariable int id, Model model) throws IOException {
         GenericDao characterDao = new GenericDao(Character.class);
         String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
         Character character = getCharacterById(id);
@@ -54,8 +79,17 @@ public class CharacterController {
         return "redirect:/user/"+creatorId+"/?notice=failure";
     }
 
+    /**
+     * Create character path string.
+     *
+     * @param charactername the charactername
+     * @param creatorname   the creatorname
+     * @param realmname     the realmname
+     * @param model         the model
+     * @return the string
+     */
     @PostMapping(value = "/character/create")
-    String createcharacter(@RequestParam("charactername") String charactername,
+    String createCharacterPath(@RequestParam("charactername") String charactername,
                            @RequestParam("creatorname") String creatorname,
                            @RequestParam("realmname") String realmname,
                            Model model) {
@@ -91,25 +125,48 @@ public class CharacterController {
         }
     }
 
+    /**
+     * New character path string.
+     *
+     * @param model the model
+     * @return the string
+     */
     @GetMapping("/character/new")
-    String newcharacter(Model model) {
+    String newCharacterPath(Model model) {
         Character character = new Character();
         model.addAttribute("character", character);
         return "characternew";
     }
 
+    /**
+     * Gets all characters.
+     *
+     * @return the all characters
+     */
     public List<Character> getAllCharacters() {
         GenericDao characterDao = new GenericDao(Character.class);
         List<Character> characters = characterDao.getAll();
         return characters;
     }
 
+    /**
+     * Gets character by id.
+     *
+     * @param id the id
+     * @return the character by id
+     */
     public Character getCharacterById(int id) {
         GenericDao characterDao = new GenericDao(Character.class);
         Character character = (Character)characterDao.getById(id);
         return character;
     }
 
+    /**
+     * Gets character model.
+     *
+     * @param character the character
+     * @return the character model
+     */
     public CharacterModel getCharacterModel(Character character) {
         CharacterModelController characterModelController = new CharacterModelController();
         CharacterModel characterModel = characterModelController.getCharacterModel(character);

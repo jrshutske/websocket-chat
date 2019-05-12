@@ -23,19 +23,39 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * The type Main.
+ */
 @Controller
 @SpringBootApplication
 public class Main {
 
-  public static void main(String[] args) throws Exception {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
+    public static void main(String[] args) throws Exception {
     SpringApplication.run(Main.class, args);
   }
   private final Logger logger = LogManager.getLogger(this.getClass());
 
-  @GetMapping("/")
-  String index() { return "index"; }
-  @GetMapping("/login")
-  String login() {
+    /**
+     * Index string.
+     *
+     * @return the string
+     */
+    @GetMapping("/")
+  String indexPath() { return "index"; }
+
+    /**
+     * Login string.
+     *
+     * @return the string
+     */
+    @GetMapping("/login")
+  String loginPath() {
     return "login";
   }
 }

@@ -9,6 +9,9 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Session factory provider.
+ */
 public class SessionFactoryProvider {
 
     private static SessionFactory sessionFactory;
@@ -16,6 +19,9 @@ public class SessionFactoryProvider {
     private SessionFactoryProvider() {
     }
 
+    /**
+     * Create session factory.
+     */
     public static void createSessionFactory() {
         Map<String,String> jdbcUrlSettings = new HashMap<>();
         String jdbcDbUrl = System.getenv("JDBC_DATABASE_URL");
@@ -31,6 +37,11 @@ public class SessionFactoryProvider {
         sessionFactory = metaData.getSessionFactoryBuilder().build();
     }
 
+    /**
+     * Gets session factory.
+     *
+     * @return the session factory
+     */
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             createSessionFactory();

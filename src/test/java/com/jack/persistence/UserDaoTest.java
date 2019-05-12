@@ -15,15 +15,33 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * The type User dao test.
+ */
 class UserDaoTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * The User dao.
+     */
     GenericDao userDao;
+    /**
+     * The Character dao.
+     */
     GenericDao characterDao;
+    /**
+     * The User.
+     */
     User user;
+    /**
+     * The User id.
+     */
     int userId;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
 
@@ -38,12 +56,18 @@ class UserDaoTest {
         user = (User)userDao.getById(userId);
     }
 
+    /**
+     * Gets by id.
+     */
     @Test
     void getById() {
         User user = (User)userDao.getById(userId);
         assertEquals("jackshutske", user.getUsername());
     }
 
+    /**
+     * Save or update.
+     */
     @Test
     void saveOrUpdate() {
         User beforeUser = (User)userDao.getById(userId);
@@ -53,6 +77,9 @@ class UserDaoTest {
         assertEquals("johnshutske@gmail.com", afterUser.getContact());
     }
 
+    /**
+     * Insert.
+     */
     @Test
     void insert() {
         userId = userDao.insert(user);
@@ -60,6 +87,9 @@ class UserDaoTest {
         assertEquals("jackshutske@gmail.com", user.getContact());
     }
 
+    /**
+     * Delete.
+     */
     @Test
     void delete() {
         User user = (User)userDao.getById(userId);
@@ -67,12 +97,18 @@ class UserDaoTest {
         assertNull(userDao.getById(userId));
     }
 
+    /**
+     * Gets all.
+     */
     @Test
     void getAll() {
         List<User> users = userDao.getAll();
         assertEquals(false, users.isEmpty());
     }
 
+    /**
+     * After all.
+     */
     @AfterAll
     public static void AfterAll() {
         CleanDatabase cd = new CleanDatabase();

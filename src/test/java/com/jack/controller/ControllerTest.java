@@ -8,16 +8,21 @@ import org.junit.jupiter.api.Test;
 import com.jack.entity.Character;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class CharacterControllerTest {
+/**
+ * The type Character controller test.
+ */
+public class ControllerTest {
 
     private final Logger logger = LogManager.getLogger(this.getClass());
 
+    /**
+     * Gets access token test.
+     */
     @Test
     void getAccessTokenTest() {
         CharacterModelController characterModelController = new CharacterModelController();
@@ -25,6 +30,9 @@ public class CharacterControllerTest {
         assertNotNull(characterModelController.getAccessToken());
     }
 
+    /**
+     * Gets race faction name test.
+     */
     @Test
     void getRaceFactionNameTest() {
         CharacterModelController characterModelController = new CharacterModelController();
@@ -37,6 +45,9 @@ public class CharacterControllerTest {
         assertEquals("alliance", faction);
     }
 
+    /**
+     * Gets class name test.
+     */
     @Test
     void getClassNameTest() {
         CharacterModelController characterModelController = new CharacterModelController();
@@ -44,6 +55,9 @@ public class CharacterControllerTest {
         assertEquals("Rogue", characterModelController.getClassName(4));
     }
 
+    /**
+     * Gets character model.
+     */
     @Test
     void getCharacterModel() {
         Character character = new Character();
@@ -61,6 +75,9 @@ public class CharacterControllerTest {
 
     }
 
+    /**
+     * Gets character models.
+     */
     @Test
     void getCharacterModels() {
         Set<Character> characters = new HashSet<>();

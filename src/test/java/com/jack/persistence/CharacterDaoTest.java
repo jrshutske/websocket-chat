@@ -11,15 +11,39 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * The type Character dao test.
+ */
 class CharacterDaoTest {
 
+    /**
+     * The Character dao.
+     */
     GenericDao characterDao;
+    /**
+     * The User dao.
+     */
     GenericDao userDao;
+    /**
+     * The Character.
+     */
     Character character;
+    /**
+     * The User.
+     */
     User user;
+    /**
+     * The Character id.
+     */
     int characterId;
+    /**
+     * The User id.
+     */
     int userId;
 
+    /**
+     * Sets up.
+     */
     @BeforeEach
     void setUp() {
 
@@ -41,12 +65,18 @@ class CharacterDaoTest {
         character = (Character)characterDao.getById(characterId);
     }
 
+    /**
+     * Gets by id.
+     */
     @Test
     void getById() {
         Character character = (Character)characterDao.getById(characterId);
         assertEquals("initialCharacter", character.getCharactername());
     }
 
+    /**
+     * Save or update.
+     */
     @Test
     void saveOrUpdate() {
         Character character = (Character)characterDao.getById(characterId);
@@ -56,6 +86,9 @@ class CharacterDaoTest {
         assertEquals("newCharacter", character.getCharactername());
     }
 
+    /**
+     * Insert.
+     */
     @Test
     void insert() {
         characterId = characterDao.insert(character);
@@ -63,6 +96,9 @@ class CharacterDaoTest {
         assertEquals("initialCharacter", character.getCharactername());
     }
 
+    /**
+     * Delete.
+     */
     @Test
     void delete() {
         Character character = (Character)characterDao.getById(characterId);
@@ -70,12 +106,18 @@ class CharacterDaoTest {
         assertNull(characterDao.getById(characterId));
     }
 
+    /**
+     * Gets all.
+     */
     @Test
     void getAll() {
         List<Character> characters = characterDao.getAll();
         assertEquals(false, characters.isEmpty());
     }
 
+    /**
+     * After all.
+     */
     @AfterAll
     public static void AfterAll() {
         CleanDatabase cd = new CleanDatabase();
