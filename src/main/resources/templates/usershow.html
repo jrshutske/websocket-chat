@@ -4,7 +4,7 @@
     <div class="container">
         <div th:if="${param.notice}">
             <div class="text-center alert alert-success"  th:if="${param.notice[0] == 'success'}">
-                You have successfully removed you character.
+                You have successfully removed your character.
             </div>
             <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'failure'}">
                 There was an error removing that character.
