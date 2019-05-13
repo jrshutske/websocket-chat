@@ -3,8 +3,14 @@
 <body>
 <div class="container">
     <div th:if="${param.notice}">
-        <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'failure'}">
+        <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'exists'}">
             That user already exists.
+        </div>
+        <div class="text-center alert alert-danger"  th:if="${param.notice[0] == 'username'}">
+            Please enter a username.
+        </div>
+        <div class="text-center alert alert-danger"  th:if="${param.notice[0] == 'password'}">
+            Please enter a password.
         </div>
     </div>
     <div class="jumbotron text-center">

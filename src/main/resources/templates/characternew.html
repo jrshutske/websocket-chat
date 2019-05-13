@@ -6,7 +6,7 @@
         <div class="text-center alert alert-warning"  th:if="${param.notice[0] == 'exists'}">
             That character is already linked to your account.
         </div>
-        <div class="text-center alert alert-warning"  th:if="${param.notice[0] == '404'}">
+        <div class="text-center alert alert-danger"  th:if="${param.notice[0] == '404'}">
             That character does not exist.
         </div>
     </div>

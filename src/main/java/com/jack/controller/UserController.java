@@ -215,22 +215,25 @@ public class UserController {
         user.setLastname(lastname);
         user.setContact(contact);
         user.setPassword(password);
+        if (username.length() == 0) {
+            return "redirect:/user/new?notice=username";
+        }
+        if (password.length() == 0) {
+            return "redirect:/user/new?notice=password";
+        }
         UserDetails userDetails =
                 org.springframework.security.core.userdetails.User.withDefaultPasswordEncoder()
                         .username(username)
                         .password(password)
                         .roles("USER")
                         .build();
-        if (username.length() == 0) {
-            return "redirect:/user/new?notice=failure";
-        }
         if (!inMemoryUserDetailsManager.userExists(username)) {
             int id = userDao.insert(user);
             inMemoryUserDetailsManager.createUser(userDetails);
             logger.info("the user that is created: " + username);
             return "redirect:/login/?notice=success";
         } else {
-            return "redirect:/user/new?notice=failure";
+            return "redirect:/user/new?notice=exists";
         }
     }
 
